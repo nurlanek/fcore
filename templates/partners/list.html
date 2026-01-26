@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h4>{% trans "Partners" %}</h4>
+        <!-- Кнопка для добавления нового партнера -->
+        <button class="btn btn-primary" onclick="showPartnerModal()">+ {% trans "Add Partner" %}</button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Phone" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody id="partnerTable">
+            <!-- Данные загружаются через JS -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Модальное окно для создания и редактирования -->
+<div class="modal fade" id="partnerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h5 id="modalTitle">{% trans "Partner" %}</h5>
+            <input type="hidden" id="p_id"> <!-- Скрытое поле для ID -->
+
+            <div class="mb-2">
+                <label>{% trans "Name" %}</label>
+                <input type="text" id="p_name" class="form-control" required>
+            </div>
+
+            <div class="mb-2">
+                <label>{% trans "Type" %}</label>
+                <select id="p_type" class="form-select"></select>
+            </div>
+
+            <div class="mb-2">
+                <label>{% trans "Phone" %}</label>
+                <input type="text" id="p_phone" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" id="p_email" class="form-control">
+            </div>
+
+            <button class="btn btn-success w-100" onclick="savePartner()">{% trans "Save" %}</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Функция загрузки списка и типов партнеров
+async function loadPartners() {
+    const [partners, types] = await Promise.all([
+        apiFetch("/api/v1/partners/"),
+        apiFetch("/api/v1/partner-types/")
+    ]);
+
+    // Заполнение выпадающего списка типов
+    const typeSel = document.getElementById("p_type");
+    typeSel.innerHTML = types.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+
+    const tbody = document.getElementById("partnerTable");
+    tbody.innerHTML = partners.map(p => `
+        <tr>
+            <td>${p.name}</td>
+            <td>${p.type_name || '---'}</td>
+            <td>${p.phone || ''}</td>
+            <td>
+                <!-- ВОТ ЭТА КНОПКА ИЗМЕНИТЬ -->
+                <button class="btn btn-sm btn-warning" onclick='editPartner(${JSON.stringify(p)})'>✎</button>
+                <button class="btn btn-sm btn-danger" onclick="deletePartner(${p.id})">🗑</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Функция открытия модального окна для редактирования
+function editPartner(p) {
+    document.getElementById("modalTitle").innerText = "{% trans 'Edit Partner' %}";
+    document.getElementById("p_id").value = p.id;
+    document.getElementById("p_name").value = p.name;
+    document.getElementById("p_type").value = p.type;
+    document.getElementById("p_phone").value = p.phone || '';
+    document.getElementById("p_email").value = p.email || '';
+
+    new bootstrap.Modal(document.getElementById('partnerModal')).show();
+}
+
+// Функция открытия окна для нового партнера
+function showPartnerModal() {
+    document.getElementById("modalTitle").innerText = "{% trans 'Add Partner' %}";
+    document.getElementById("p_id").value = ""; // Очищаем ID
+    document.getElementById("p_name").value = "";
+    document.getElementById("p_phone").value = "";
+    document.getElementById("p_email").value = "";
+
+    new bootstrap.Modal(document.getElementById('partnerModal')).show();
+}
+
+async function savePartner() {
+    const id = document.getElementById("p_id").value;
+    const payload = {
+        name: document.getElementById("p_name").value,
+        type: document.getElementById("p_type").value,
+        phone: document.getElementById("p_phone").value,
+        email: document.getElementById("p_email").value
+    };
+
+    const url = id ? `/api/v1/partners/${id}/` : "/api/v1/partners/";
+    const method = id ? "PUT" : "POST";
+
+    // Оптималдаштырылган чакыруу
+    const data = await apiFetch(url, {
+        method: method,
+        body: JSON.stringify(payload)
+    });
+
+    if (data) {
+        location.reload();
+    } else {
+        alert("Ката кетти!");
+    }
+}
+
+
+async function deletePartner(id) {
+    if (!confirm("{% trans 'Are you sure?' %}")) return;
+    await fetch(window.API_BASE + `/api/v1/partners/${id}/`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
+            "X-Company-ID": localStorage.getItem("company_id")
+        }
+    });
+    loadPartners();
+}
+
+document.addEventListener("DOMContentLoaded", loadPartners);
+</script>
+{% endblock %}

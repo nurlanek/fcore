@@ -25,46 +25,37 @@
     </div>
   </div>
 </div>
-
 <script>
-const API = "http://127.0.0.1:8001";
-
-function headers(){
-    return {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("access"),
-        "X-Company-ID": localStorage.getItem("company_id")
-    };
-}
-
-async function loadCurrencies(){
-    const res = await fetch(API + "/api/v1/currencies/", {
-        headers: headers()
-    });
-    const data = await res.json();
-
+// 1. Валюталарды жүктөө (Муну глобалдык функция катары да колдонсо болот)
+async function loadCurrencies() {
+    // base.html ичиндеги apiFetch автоматтык түрдө токенди кошот
+    const data = await apiFetch("/api/v1/currencies/");
     const sel = document.getElementById("currency");
-    sel.innerHTML = "";
+    if (!sel) return;
 
-    data.forEach(c=>{
+    sel.innerHTML = "";
+    data.forEach(c => {
         const opt = document.createElement("option");
-        opt.value = c.id;
+        opt.value = c.id; // Backend'ден келген ID
         opt.textContent = c.code + " - " + c.name;
         sel.appendChild(opt);
     });
 }
 
-async function loadCompany(){
-    const res = await fetch(API + "/api/v1/companies/current/", {
-        headers: headers()
-    });
-    const data = await res.json();
+// 2. Учурдагы компаниянын маалыматын жүктөө
+async function loadCompany() {
+    // Эскертүү: X-Company-ID хедери apiFetch аркылуу автоматтык кетет
+    const data = await apiFetch("/api/v1/companies/current/");
 
-    document.getElementById("name").value = data.name;
-    document.getElementById("currency").value = data.base_currency;
+    if (data) {
+        document.getElementById("name").value = data.name;
+        // Валютанын ID-си аркылуу селектти белгилейбиз
+        document.getElementById("currency").value = data.base_currency;
+    }
 }
 
-document.getElementById("settingsForm").onsubmit = async function(e){
+// 3. Форманы сактоо (PUT методу менен)
+document.getElementById("settingsForm").onsubmit = async function(e) {
     e.preventDefault();
 
     const payload = {
@@ -72,24 +63,31 @@ document.getElementById("settingsForm").onsubmit = async function(e){
         base_currency: document.getElementById("currency").value
     };
 
-    const res = await fetch(API + "/api/v1/companies/current/", {
+    // apiFetch'тин экинчи параметри катары методду жана body'ни жөнөтөбүз
+    const response = await fetch(window.API_BASE + "/api/v1/companies/current/", {
         method: "PUT",
-        headers: headers(),
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access"),
+            "Content-Type": "application/json",
+            "X-Company-ID": localStorage.getItem("company_id")
+        },
         body: JSON.stringify(payload)
     });
 
-    const data = await res.json();
+    const result = await response.json();
+    const msg = document.getElementById("msg");
 
-    if(res.ok){
-        document.getElementById("msg").innerHTML =
-            "<span class='text-success'>Saved ✔</span>";
-    }else{
-        document.getElementById("msg").innerHTML =
-            "<span class='text-danger'>" + JSON.stringify(data) + "</span>";
+    if (response.ok) {
+        msg.innerHTML = "<span class='text-success'>{% trans 'Saved' %} ✔</span>";
+    } else {
+        msg.innerHTML = "<span class='text-danger'>" + JSON.stringify(result) + "</span>";
     }
 };
 
-loadCurrencies().then(loadCompany);
+// Барак жүктөлгөндө ирет менен чакыруу
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadCurrencies(); // Биринчи валюталар жүктөлүшү керек
+    await loadCompany();    // Андан кийин компаниянын маалыматы
+});
 </script>
-
 {% endblock %}

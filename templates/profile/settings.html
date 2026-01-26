@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 {% block content %}
 
 <div class="container">
@@ -44,29 +45,9 @@
 </div>
 
 <script>
-const API = "http://127.0.0.1:8001";
-
-function headers(){
-  return {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer " + localStorage.getItem("access")
-  };
-}
-
-async function loadCurrencies(){
-  const res = await fetch(API + "/api/v1/currencies/", { headers: headers() });
-  const data = await res.json();
-
-  const sel = document.getElementById("currency");
-  sel.innerHTML = "";
-
-  data.forEach(c=>{
-    const opt = document.createElement("option");
-    opt.value = c.code;
-    opt.textContent = c.code + " - " + c.name;
-    sel.appendChild(opt);
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+    loadCurrenciesGlobal("currency"); // "currency" бул селекттин ID-си
+});
 
 async function loadProfile(){
   const res = await fetch(API + "/api/v1/profile/", { headers: headers() });

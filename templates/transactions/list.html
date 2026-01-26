@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h4>{% trans "Transaction History" %}</h4>
+        <a href="/transactions/new/" class="btn btn-primary">{% trans "+ New Transaction" %}</a>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Description" %}</th>
+                <th>{% trans "Partner" %}</th>
+                <th>{% trans "Reason" %}</th>
+                <th>{% trans "Details" %}</th>
+            </tr>
+        </thead>
+        <tbody id="txRows"></tbody>
+    </table>
+</div>
+
+<script>
+async function loadTransactions() {
+    const data = await apiFetch("/api/v1/journal-entries/"); // булактагы [2]
+    const tbody = document.getElementById("txRows");
+    
+    tbody.innerHTML = data.map(tx => `
+        <tr>
+            <td>${tx.date}</td>
+            <td>${tx.description || '---'}</td>
+            <td>${tx.partner_name || '---'}</td>
+            <td>${tx.reason_name || '---'}</td>
+            <td>
+                <small class="text-muted">
+                    ${tx.lines.map(line => 
+                        `${line.account_name}: ${line.debit > 0 ? '+' + line.debit : '-' + line.credit}`
+                    ).join('<br>')}
+                </small>
+            </td>
+        </tr>
+    `).join('');
+}
+
+document.addEventListener("DOMContentLoaded", loadTransactions);
+</script>
+{% endblock %}

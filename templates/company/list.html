@@ -31,49 +31,44 @@
 </div>
 
 <script>
-const API = "http://127.0.0.1:8001";
-
-function headers(){
-  return {
-    "Authorization": "Bearer " + localStorage.getItem("access")
-  };
-}
-
-async function loadCompanies(){
-  const res = await fetch(API + "/api/v1/companies/", { headers: headers() });
-  const data = await res.json();
+// 1. Компанияларды жүктөө функциясы
+async function loadCompanies() {
+  // base.html'деги apiFetch автоматтык түрдө токенди кошот [1]
+  const data = await apiFetch("/api/v1/companies/");
 
   const tbody = document.getElementById("rows");
-  tbody.innerHTML = "";
+  if (!tbody) return;
 
-  const activeId = localStorage.getItem("company_id");
+  tbody.innerHTML = "";
+  const activeId = localStorage.getItem("company_id"); // Учурдагы активдүү компания [3]
 
   data.forEach(c => {
     const tr = document.createElement("tr");
-
+    // ID-лерди салыштыруу (UUID форматта) [3, 4]
     const isActive = activeId === c.company_id;
 
     tr.innerHTML = `
       <td>${c.company_name}</td>
       <td>${c.role}</td>
       <td>
-        ${isActive 
+        ${isActive
           ? "<span class='badge bg-primary'>Active</span>"
           : `<button class="btn btn-sm btn-outline-primary" onclick="switchCompany('${c.company_id}')">Switch</button>`
         }
       </td>
     `;
-
     tbody.appendChild(tr);
   });
 }
 
-function switchCompany(id){
-  localStorage.setItem("company_id", id);
-  window.location.href = "/dashboard/";
+// 2. Компанияны которуу функциясы
+function switchCompany(id) {
+  localStorage.setItem("company_id", id); // Жаңы ID-ни сактоо [3]
+  window.location.href = "/dashboard/"; // Башкаруу панелине багыттоо [3]
 }
 
-loadCompanies();
+// Барак жүктөлгөндө чакыруу
+document.addEventListener("DOMContentLoaded", loadCompanies);
 </script>
 
 {% endblock %}

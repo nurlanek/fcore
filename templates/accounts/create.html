@@ -32,26 +32,7 @@
 </div>
 
 <script>
-// ---------- Load currencies ----------
-async function loadCurrencies(){
-    const res = await fetch(window.API_BASE + "/api/v1/currencies/", {
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access")
-        }
-    });
 
-    const data = await res.json();
-    const sel = document.getElementById("currency");
-
-    sel.innerHTML = "";
-
-    data.forEach(c => {
-        const opt = document.createElement("option");
-        opt.value = c.code;   // Account.currency = CharField
-        opt.textContent = c.code + " - " + c.name;
-        sel.appendChild(opt);
-    });
-}
 
 // ---------- Submit form ----------
 document.getElementById("accountForm").addEventListener("submit", async function(e){
