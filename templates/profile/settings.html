@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+      <div class="card shadow-sm p-4">
+
+        <h4 class="mb-3 text-center">{% trans "Profile Settings" %}</h4>
+
+        <form id="profileForm">
+
+          <label>{% trans "Language" %}</label>
+          <select class="form-select mb-3" id="language">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="tr">Türkçe</option>
+            <option value="ky">Кыргызча</option>
+          </select>
+
+          <label>Timezone</label>
+          <select class="form-select mb-3" id="timezone">
+            <option value="UTC">UTC</option>
+            <option value="Asia/Bishkek">Asia/Bishkek</option>
+            <option value="Europe/Moscow">Europe/Moscow</option>
+            <option value="Europe/Istanbul">Europe/Istanbul</option>
+          </select>
+
+          <label>{% trans "Preferred currency" %}</label>
+          <select class="form-select mb-4" id="currency"></select>
+
+          <button class="btn btn-primary w-100">{% trans "Save" %}</button>
+
+        </form>
+
+        <div id="msg" class="mt-2 text-center"></div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const API = "http://127.0.0.1:8001";
+
+function headers(){
+  return {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + localStorage.getItem("access")
+  };
+}
+
+async function loadCurrencies(){
+  const res = await fetch(API + "/api/v1/currencies/", { headers: headers() });
+  const data = await res.json();
+
+  const sel = document.getElementById("currency");
+  sel.innerHTML = "";
+
+  data.forEach(c=>{
+    const opt = document.createElement("option");
+    opt.value = c.code;
+    opt.textContent = c.code + " - " + c.name;
+    sel.appendChild(opt);
+  });
+}
+
+async function loadProfile(){
+  const res = await fetch(API + "/api/v1/profile/", { headers: headers() });
+  const data = await res.json();
+
+  document.getElementById("language").value = data.language;
+  document.getElementById("timezone").value = data.timezone;
+  document.getElementById("currency").value = data.preferred_currency;
+}
+
+document.getElementById("profileForm").onsubmit = async function(e) {
+  e.preventDefault();
+  const selectedLang = document.getElementById("language").value; // Тандалган тил
+
+  const payload = {
+    language: selectedLang,
+    timezone: document.getElementById("timezone").value,
+    preferred_currency: document.getElementById("currency").value
+  };
+
+  const res = await fetch(API + "/api/v1/profile/", {
+    method: "PUT",
+    headers: headers(),
+    body: JSON.stringify(payload)
+  });
+
+  if(res.ok){
+    // 1. Тилди браузердин куукисине дароо жазабыз (Middleware жардам бериши үчүн)
+    document.cookie = "django_language=" + selectedLang + "; path=/";
+
+    document.getElementById("msg").innerHTML = "<span class='text-success'>Saved ✔</span>";
+
+    // 2. Баракчаны кайра жүктөйбүз, ошондо жаңы тил ишке кирет
+    setTimeout(() => {
+        location.reload();
+    }, 500);
+  } else {
+    // катаны көрсөтүү
+  }
+};
+loadCurrencies().then(loadProfile);
+</script>
+
+{% endblock %}

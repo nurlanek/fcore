@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% load i18n %}
+{% block content %}
+<h4>{% trans "Trial Balance" %}</h4>
+<table class="table table-bordered">
+    <thead><tr><th>{% trans "Code" %}</th><th>{% trans "Account" %}</th><th>Debit</th><th>Credit</th><th>{% trans "Balance" %}</th></tr></thead>
+    <tbody id="rows"></tbody>
+</table>
+<script>
+async function loadTrial() {
+    let res = await fetch(window.API_BASE + "/api/v1/reports/trial-balance/", {
+        headers: { "Authorization": "Bearer " + localStorage.getItem("access"), "X-Company-ID": localStorage.getItem("company_id") }
+    });
+    let data = await res.json();
+    let html = "";
+    data.forEach(item => {
+        html += `<tr><td>${item.code}</td><td>${item.name}</td><td>${item.debit}</td><td>${item.credit}</td><td>${item.balance}</td></tr>`;
+    });
+    document.getElementById("rows").innerHTML = html;
+}
+loadTrial();
+</script>
+{% endblock %}

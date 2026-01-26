@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+<div class="col-md-4">
+
+<h4>Register</h4>
+
+<form id="registerForm">
+  <input class="form-control mb-2" type="email" id="email" placeholder="Email" required>
+  <input class="form-control mb-2" type="password" id="password" placeholder="Password" required>
+  <button class="btn btn-success w-100">Create account</button>
+</form>
+
+<div id="msg" class="mt-2"></div>
+
+<script>
+document.getElementById("registerForm").onsubmit = async function(e){
+    e.preventDefault();
+
+    let res = await fetch("http://127.0.0.1:8001/api/v1/auth/register/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    });
+
+    let data = await res.json();
+
+    if(res.ok){
+        msg.innerHTML = "<span class='text-success'>Account created. Redirecting...</span>";
+        setTimeout(()=> location.href="/", 1200);
+    }else{
+        msg.innerHTML = "<span class='text-danger'>"+JSON.stringify(data)+"</span>";
+    }
+}
+</script>
+
+</div>
+</div>
+{% endblock %}

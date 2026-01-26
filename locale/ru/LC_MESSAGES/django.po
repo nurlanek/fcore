@@ -1,0 +1,106 @@
+# Russian translations for fcore project
+# Author: Nuri Musa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fcore 1.0\n"
+"POT-Creation-Date: 2026-01-22 13:17+0600\n"
+"PO-Revision-Date: 2026-01-26 10:30+0600\n"
+"Last-Translator: Nuri Musa\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+
+msgid "Create Company"
+msgstr "Создать компанию"
+
+msgid "Company name"
+msgstr "Название компании"
+
+msgid "Base currency"
+msgstr "Базовая валюта"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "My Companies"
+msgstr "Мои компании"
+
+msgid "+ New company"
+msgstr "+ Новая компания"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "Role"
+msgstr "Роль"
+
+msgid "Company Settings"
+msgstr "Настройки компании"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Profile Settings"
+msgstr "Настройки профиля"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Preferred currency"
+msgstr "Предпочитаемая валюта"
+
+msgid "Expense Account"
+msgstr "Счет расходов"
+
+msgid "Amount"
+msgstr "Сумма"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Save Transaction"
+msgstr "Сохранить транзакцию"
+
+msgid "Balance Sheet"
+msgstr "Бухгалтерский баланс"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Balance"
+msgstr "Баланс"
+
+msgid "Profit & Loss"
+msgstr "Прибыль и убытки"
+
+msgid "New Transaction"
+msgstr "Новая транзакция"
+
+msgid "Company settings"
+msgstr "Настройки компании"
+
+msgid "Companies"
+msgstr "Компании"
+
+msgid "Profile settings"
+msgstr "Настройки профиля"
+
+msgid "Transaction type"
+msgstr "Тип транзакции"
+
+msgid "Account"
+msgstr "Счет"
+
+msgid "Menu"
+msgstr "Меню"

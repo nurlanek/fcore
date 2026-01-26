@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<h4>{% trans "New Transaction" %}</h4>
+
+<div class="row">
+<div class="col-md-6">
+
+<form id="txForm">
+    <!-- Түрүн тандоо -->
+<label>{% trans "Transaction type" %}</label>
+<select class="form-select mb-2" id="tx_type" onchange="loadAccounts()">
+    <option value="expense">{% trans "Expense" %}</option>
+    <option value="income">{% trans "Income" %}</option>
+</select>
+
+<label>{% trans "Account" %}</label>
+<select class="form-select mb-2" id="account"></select>
+
+<label>{% trans "Amount" %}</label>
+<input class="form-control mb-2" id="amount" type="number" step="0.01" required>
+
+
+
+<label>{% trans "Date" %}</label>
+<input class="form-control mb-2" id="date" type="date" required>
+
+<label>{% trans "Description" %}</label>
+<input class="form-control mb-3" id="description">
+
+<button type="submit" class="btn btn-primary">{% trans "Save Transaction" %}</button>
+
+</form>
+
+<div id="msg" class="mt-3"></div>
+
+</div>
+</div>
+
+<script>
+if(!window.API_BASE){
+    window.API_BASE = "http://127.0.0.1:8001";
+}
+
+// 1. Керектүү маалыматтар (Header) - булактардагы [1-3] стандартка ылайык
+function headers() {
+    const token = localStorage.getItem("access");
+    const companyId = localStorage.getItem("company_id");
+    return {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+        "X-Company-ID": companyId
+    };
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/* 2. Эсептерди (Accounts) жүктөө жана фильтрлөө */
+async function loadAccounts() {
+    const type = document.getElementById("tx_type").value; // "income" же "expense"
+    const res = await fetch(window.API_BASE + "/api/v1/accounts/balances/", { headers: headers() });
+    const data = await res.json();
+
+    console.log("accounts:", data);   // ⬅️ МЫНА УШУЛ ЖЕРГЕ
+
+    const sel = document.getElementById("account");
+    sel.innerHTML = "";
+
+    // Сиз жазган фильтрлөө логикасы туура [баштапкы код 100-булакта чектелген болчу]
+    data.filter(a => a.type && a.type.toLowerCase() === type)
+        .forEach(a => {
+            const opt = document.createElement("option");
+            opt.value = a.id;
+            opt.textContent = a.code + " - " + a.name;
+            sel.appendChild(opt);
+        });
+}
+
+/* 3. Форманы жөнөтүү (Submit) */
+document.getElementById("txForm").onsubmit = async function(e) {
+    e.preventDefault();
+
+    let payload = {
+        transaction_type: document.getElementById("tx_type").value,
+        account_id: document.getElementById("account").value,
+        amount: document.getElementById("amount").value,
+        date: document.getElementById("date").value,
+        description: document.getElementById("description").value
+    };
+
+    let res = await fetch(window.API_BASE + "/api/v1/transactions/simple/", {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify(payload)
+    });
+
+    let text = await res.text();
+    let data = {};
+
+    try {
+        data = JSON.parse(text);
+    } catch(e) {
+        console.log("Non-JSON response:", text);
+    }
+
+    let msg = document.getElementById("msg");
+
+
+    if (res.ok) {
+        msg.innerHTML = "✅ Transaction saved successfully";
+
+        msg.style.color = "green";
+
+        // форма тазаланат
+        document.getElementById("amount").value = "";
+        document.getElementById("description").value = "";
+
+    } else {
+        msg.innerHTML = "❌ Error: " + (data.detail || "Save failed");
+        msg.style.color = "red";
+    }
+
+    return false; // 🔴 ӨТӨ МААНИЛҮҮ
+};
+
+/* 4. Компаниянын ID-син күтүү жана ишке киргизүү [1] */
+async function waitForCompanyAndLoadAccounts() {
+    while (!localStorage.getItem("company_id")) {
+        await sleep(200);
+    }
+    loadAccounts();
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    waitForCompanyAndLoadAccounts();
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,169 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FCore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { overflow-x: hidden; }
+        .sidebar {
+            width: 220px;
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            background: #f8f9fa;
+            padding: 15px;
+        }
+        .content {
+            margin-left: 240px;
+            margin-top: 70px;
+        }
+    </style>
+
+    <script>
+    window.API_BASE = "http://127.0.0.1:8001";
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top px-3">
+  <span class="navbar-brand">{% trans "FCore Accounting" %}</span>
+  <button class="btn btn-sm btn-outline-light" onclick="logout()">{% trans "Logout" %}</button>
+</nav>
+
+<div class="sidebar">
+    <h6>{% trans "Menu" %}</h6>
+    <ul class="nav flex-column">
+        <!-- Башкаруу панели -->
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard/">{% trans "Dashboard" %}</a>
+        </li>
+
+        <!-- Отчеттор бөлүмү -->
+        <li class="nav-item">
+            <a class="nav-link" href="/reports/balance/">{% trans "Balance Sheet" %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/reports/pl/">{% trans "Profit & Loss" %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/reports/trial/">{% trans "Trial Balance" %}</a>
+        </li>
+
+        <hr> <!-- Бөлүүчү сызык -->
+
+        <!-- Операциялар жана Жөндөөлөр -->
+        <li class="nav-item">
+            <a class="nav-link" href="/transactions/new/">{% trans "New Transaction" %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/accounts/create/">{% trans "Add Account" %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/company/settings/">{% trans "Company settings" %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/companies/">{% trans "Companies" %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/profile/settings/">{% trans "Profile settings" %}</a>
+        </li>
+    </ul>
+    <hr>
+    <!-- Компанияны тандоо (Global Switch) -->
+    <select id="companySelect" class="form-select form-select-sm"></select>
+</div>
+
+<div class="content container">
+    {% block content %}{% endblock %}
+</div>
+
+
+
+<script>
+    (function(){
+    const publicPaths = ["/", "/register/"];
+
+    const currentPath = window.location.pathname;
+
+    if(!publicPaths.includes(currentPath)){
+        if(!localStorage.getItem("access")){
+            window.location.href = "/";
+        }
+    }
+})();
+
+
+function logout(){
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    localStorage.removeItem("company_id");
+
+    location.href = "/";
+}
+
+
+
+async function apiFetch(url){
+    const token = localStorage.getItem("access");
+
+    const headers = {
+        "Authorization": "Bearer " + token
+    };
+
+    const companyId = localStorage.getItem("company_id");
+    if(companyId){
+        headers["X-Company-ID"] = companyId;
+    }
+
+    const res = await fetch(window.API_BASE + url, { headers });
+    return res.json();
+}
+
+async function loadCompaniesGlobal(){
+    console.log("Loading companies...");
+
+    const companies = await apiFetch("/api/v1/companies/");
+    console.log("Companies:", companies);
+
+    // ✅ company_id ар дайым коюлат
+    if(!localStorage.getItem("company_id") && companies.length){
+        localStorage.setItem("company_id", companies[0].company_id);
+        console.log("Company ID set to:", companies[0].company_id);
+    }
+
+    const select = document.getElementById("companySelect");
+
+    if(!select){
+        console.log("companySelect not found on this page");
+        return;
+    }
+
+    select.innerHTML = "";
+
+    companies.forEach(c=>{
+        const opt = document.createElement("option");
+        opt.value = c.company_id;
+        opt.textContent = c.company_name;
+        select.appendChild(opt);
+    });
+
+    select.value = localStorage.getItem("company_id");
+
+    select.onchange = function(){
+        localStorage.setItem("company_id", this.value);
+        location.reload();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    console.log("Base JS loaded");
+    loadCompaniesGlobal();
+});
+</script>
+
+</body>
+
+
+</html>

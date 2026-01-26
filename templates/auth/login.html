@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+<div class="col-md-4">
+
+<h4>Login</h4>
+
+<form id="loginForm">
+  <input class="form-control mb-2" type="email" id="email" placeholder="Email">
+  <input class="form-control mb-2" type="password" id="password" placeholder="Password">
+  <button class="btn btn-primary w-100">Login</button>
+</form>
+
+<div id="error" class="text-danger mt-2"></div>
+
+<script>
+document.getElementById("loginForm").onsubmit = async function(e){
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const errorBox = document.getElementById("error");
+
+    errorBox.innerText = "";
+
+    let res = await fetch("http://127.0.0.1:8001/api/v1/auth/login/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, password })
+    });
+
+    let data = await res.json();
+
+    if(!res.ok){
+        errorBox.innerText = data.detail || "Login failed";
+        return;
+    }
+
+    // токендер
+    localStorage.setItem("access", data.access);
+    localStorage.setItem("refresh", data.refresh);
+
+    // компанияларды текшерүү
+    const companiesRes = await fetch("http://127.0.0.1:8001/api/v1/companies/", {
+        headers: {
+            "Authorization": "Bearer " + data.access
+        }
+    });
+
+    const companies = await companiesRes.json();
+
+    if(companies.length === 0){
+        window.location.href = "/company/create/";
+    }else{
+        localStorage.setItem("company_id", companies[0].company_id);
+        window.location.href = "/dashboard/";
+    }
+}
+</script>
+
+</div>
+</div>
+{% endblock %}

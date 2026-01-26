@@ -1,0 +1,106 @@
+# Turkish translations for fcore project
+# Author: Nuri Musa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fcore 1.0\n"
+"POT-Creation-Date: 2026-01-22 13:17+0600\n"
+"PO-Revision-Date: 2026-01-26 10:30+0600\n"
+"Last-Translator: Nuri Musa\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+msgid "Create Company"
+msgstr "Şirket oluştur"
+
+msgid "Company name"
+msgstr "Şirket adı"
+
+msgid "Base currency"
+msgstr "Ana para birimi"
+
+msgid "Create"
+msgstr "Oluştur"
+
+msgid "My Companies"
+msgstr "Şirketlerim"
+
+msgid "+ New company"
+msgstr "+ Yeni şirket"
+
+msgid "Name"
+msgstr "Ad"
+
+msgid "Role"
+msgstr "Rol"
+
+msgid "Company Settings"
+msgstr "Şirket ayarları"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Profile Settings"
+msgstr "Profil ayarları"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "Preferred currency"
+msgstr "Tercih edilen para birimi"
+
+msgid "Expense Account"
+msgstr "Gider hesabı"
+
+msgid "Amount"
+msgstr "Tutar"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Description"
+msgstr "Açıklama"
+
+msgid "Save Transaction"
+msgstr "İşlemi kaydet"
+
+msgid "Balance Sheet"
+msgstr "Bilanço"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Balance"
+msgstr "Bakiye"
+
+msgid "Profit & Loss"
+msgstr "Kar ve Zarar"
+
+msgid "New Transaction"
+msgstr "Yeni işlem"
+
+msgid "Company settings"
+msgstr "Şirket ayarları"
+
+msgid "Companies"
+msgstr "Şirketler"
+
+msgid "Profile settings"
+msgstr "Profil ayarları"
+
+msgid "Transaction type"
+msgstr "İşlem türü"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Menu"
+msgstr "Menü"

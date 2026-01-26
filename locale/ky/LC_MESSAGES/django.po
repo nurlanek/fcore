@@ -1,0 +1,110 @@
+# Kyrgyz translations for fcore project
+# Copyright (C)
+# This file is distributed under the same license as the project.
+# Author: Nuri Musa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fcore 1.0\n"
+"POT-Creation-Date: 2026-01-22 13:17+0600\n"
+"PO-Revision-Date: 2026-01-26 10:30+0600\n"
+"Last-Translator: Nuri Musa\n"
+"Language-Team: Kyrgyz\n"
+"Language: ky\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+#: templates/company/create.html:11
+msgid "Create Company"
+msgstr "Компания түзүү"
+
+msgid "Company name"
+msgstr "Компаниянын аталышы"
+
+msgid "Base currency"
+msgstr "Негизги валюта"
+
+msgid "Create"
+msgstr "Түзүү"
+
+msgid "My Companies"
+msgstr "Менин компанияларым"
+
+msgid "+ New company"
+msgstr "+ Жаңы компания"
+
+msgid "Name"
+msgstr "Аты"
+
+msgid "Role"
+msgstr "Ролу"
+
+msgid "Company Settings"
+msgstr "Компаниянын жөндөөлөрү"
+
+msgid "Save"
+msgstr "Сактоо"
+
+msgid "Dashboard"
+msgstr "Башкаруу панели"
+
+msgid "Profile Settings"
+msgstr "Профиль жөндөөлөрү"
+
+msgid "Language"
+msgstr "Тил"
+
+msgid "Preferred currency"
+msgstr "Тандалган валюта"
+
+msgid "Expense Account"
+msgstr "Чыгым эсеби"
+
+msgid "Amount"
+msgstr "Суммасы"
+
+msgid "Date"
+msgstr "Күнү"
+
+msgid "Description"
+msgstr "Сүрөттөмөсү"
+
+msgid "Save Transaction"
+msgstr "Транзакцияны сактоо"
+
+msgid "Balance Sheet"
+msgstr "Баланс ведомосту"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Balance"
+msgstr "Калдык"
+
+msgid "Profit & Loss"
+msgstr "Киреше-Чыгаша"
+
+
+msgid "New Transaction"
+msgstr "Транзакция кошуу"
+
+msgid "Company settings"
+msgstr "Фирма жөндөмдөрү"
+
+msgid "Companies"
+msgstr "Фирмалар"
+
+msgid "Profile settings"
+msgstr "Профил жөндөмдөрү"
+
+msgid "Transaction type"
+msgstr "Транзакциянын түрү"
+
+msgid "Account"
+msgstr "Эсеп"
+
+msgid "Menu"
+msgstr "Меню"

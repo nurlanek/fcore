@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+
+{% get_current_language as LANG %}
+
+<p>LANG (tag) = {{ LANG }}</p>
+<p>LANG (request) = {{ request.LANGUAGE_CODE }}</p>
+<h4>{% trans "Balance Sheet" %}</h4>
+<div class="table-responsive">
+        <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>{% trans "Code" %}</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Balance" %}</th>
+            </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+    </table>
+</div>
+
+<script>
+
+    if(!window.API_BASE){
+    window.API_BASE = "";
+}
+
+async function loadBalance(){
+    let res = await fetch(window.API_BASE + "/api/v1/reports/balance-sheet/", {
+        headers:{
+            "Authorization":"Bearer "+localStorage.getItem("access"),
+            "X-Company-ID":localStorage.getItem("company_id")
+        }
+    });
+
+    let data = await res.json();
+
+    let html = "";
+    data.assets.forEach(a=>{
+        html+=`<tr>
+        <td>${a.code}</td>
+        <td>${a.name}</td>
+        <td>${a.balance}</td>
+        </tr>`;
+    });
+
+    document.getElementById("rows").innerHTML = html;
+}
+
+loadBalance();
+</script>
+
+{% endblock %}
