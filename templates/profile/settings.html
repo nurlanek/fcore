@@ -46,49 +46,57 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    loadCurrenciesGlobal("currency"); // "currency" бул селекттин ID-си
+    // 1. Биринчи валюталарды, анан профилди жүктөйбүз
+    loadCurrenciesGlobal("currency").then(loadProfile);
 });
 
+// Профилди жүктөө функциясы
 async function loadProfile(){
-  const res = await fetch(API + "/api/v1/profile/", { headers: headers() });
-  const data = await res.json();
-
-  document.getElementById("language").value = data.language;
-  document.getElementById("timezone").value = data.timezone;
-  document.getElementById("currency").value = data.preferred_currency;
+  // apiFetch автоматтык түрдө window.API_BASE жана токенди кошот
+  const data = await apiFetch("/api/v1/profile/");
+  if (data) {
+      document.getElementById("language").value = data.language;
+      document.getElementById("timezone").value = data.timezone;
+      document.getElementById("currency").value = data.preferred_currency;
+  }
 }
 
+// Форманы сактоо логикасы
 document.getElementById("profileForm").onsubmit = async function(e) {
   e.preventDefault();
-  const selectedLang = document.getElementById("language").value; // Тандалган тил
 
+  const selectedLang = document.getElementById("language").value;
   const payload = {
     language: selectedLang,
     timezone: document.getElementById("timezone").value,
     preferred_currency: document.getElementById("currency").value
   };
 
-  const res = await fetch(API + "/api/v1/profile/", {
+  // PUT методу менен серверге жиберебиз
+  const res = await fetch(window.API_BASE + "/api/v1/profile/", {
     method: "PUT",
-    headers: headers(),
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access")
+    },
     body: JSON.stringify(payload)
   });
 
-  if(res.ok){
-    // 1. Тилди браузердин куукисине дароо жазабыз (Middleware жардам бериши үчүн)
-    document.cookie = "django_language=" + selectedLang + "; path=/";
+  const data = await res.json();
 
+  if(res.ok){
+    // Тилди куукиге сактоо (интерфейс дароо өзгөрүшү үчүн)
+    document.cookie = "django_language=" + selectedLang + "; path=/";
     document.getElementById("msg").innerHTML = "<span class='text-success'>Saved ✔</span>";
 
-    // 2. Баракчаны кайра жүктөйбүз, ошондо жаңы тил ишке кирет
+    // Жаңы тилди активдештирүү үчүн баракчаны жаңылайбыз
     setTimeout(() => {
         location.reload();
     }, 500);
   } else {
-    // катаны көрсөтүү
+    document.getElementById("msg").innerHTML = "<span class='text-danger'>Error: " + JSON.stringify(data) + "</span>";
   }
 };
-loadCurrencies().then(loadProfile);
 </script>
 
 {% endblock %}

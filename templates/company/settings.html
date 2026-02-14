@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block content %}
 
+{% block content %}
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
-
       <h3 class="mb-3">{% trans "Company Settings" %}</h3>
-
       <form id="settingsForm">
-
           <label>{% trans "Company name" %}</label>
           <input class="form-control mb-2" id="name" required>
 
@@ -17,53 +14,45 @@
           <select class="form-select mb-3" id="currency"></select>
 
           <button class="btn btn-primary w-100">{% trans "Save" %}</button>
-
       </form>
-
       <div id="msg" class="mt-2"></div>
-
     </div>
   </div>
 </div>
+
 <script>
-// 1. Валюталарды жүктөө (Муну глобалдык функция катары да колдонсо болот)
+// 1. Валюталарды жүктөө
 async function loadCurrencies() {
-    // base.html ичиндеги apiFetch автоматтык түрдө токенди кошот
     const data = await apiFetch("/api/v1/currencies/");
     const sel = document.getElementById("currency");
     if (!sel) return;
-
     sel.innerHTML = "";
     data.forEach(c => {
         const opt = document.createElement("option");
-        opt.value = c.id; // Backend'ден келген ID
+        opt.value = c.id;
         opt.textContent = c.code + " - " + c.name;
         sel.appendChild(opt);
     });
 }
 
-// 2. Учурдагы компаниянын маалыматын жүктөө
+// 2. Компаниянын маалыматын жүктөө
 async function loadCompany() {
-    // Эскертүү: X-Company-ID хедери apiFetch аркылуу автоматтык кетет
     const data = await apiFetch("/api/v1/companies/current/");
-
     if (data) {
         document.getElementById("name").value = data.name;
-        // Валютанын ID-си аркылуу селектти белгилейбиз
         document.getElementById("currency").value = data.base_currency;
     }
 }
 
-// 3. Форманы сактоо (PUT методу менен)
+// 3. Форманы сактоо (PUT)
 document.getElementById("settingsForm").onsubmit = async function(e) {
     e.preventDefault();
-
     const payload = {
         name: document.getElementById("name").value,
         base_currency: document.getElementById("currency").value
     };
 
-    // apiFetch'тин экинчи параметри катары методду жана body'ни жөнөтөбүз
+    // window.API_BASE колдонуу менен URL оңдолду
     const response = await fetch(window.API_BASE + "/api/v1/companies/current/", {
         method: "PUT",
         headers: {
@@ -76,7 +65,6 @@ document.getElementById("settingsForm").onsubmit = async function(e) {
 
     const result = await response.json();
     const msg = document.getElementById("msg");
-
     if (response.ok) {
         msg.innerHTML = "<span class='text-success'>{% trans 'Saved' %} ✔</span>";
     } else {
@@ -84,10 +72,10 @@ document.getElementById("settingsForm").onsubmit = async function(e) {
     }
 };
 
-// Барак жүктөлгөндө ирет менен чакыруу
+// Барак жүктөлгөндө ирети менен чакыруу
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadCurrencies(); // Биринчи валюталар жүктөлүшү керек
-    await loadCompany();    // Андан кийин компаниянын маалыматы
+    await loadCurrencies();
+    await loadCompany(); // Бул жерде loadProfile эмес, loadCompany болушу керек!
 });
 </script>
 {% endblock %}

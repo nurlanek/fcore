@@ -24,10 +24,10 @@ document.getElementById("loginForm").onsubmit = async function(e){
 
     errorBox.innerText = "";
 
-    let res = await fetch("http://127.0.0.1:8001/api/v1/auth/login/", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email, password })
+    let res = await fetch(window.API_BASE + "/api/v1/auth/login/", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ email, password })
     });
 
     let data = await res.json();
@@ -42,11 +42,12 @@ document.getElementById("loginForm").onsubmit = async function(e){
     localStorage.setItem("refresh", data.refresh);
 
     // компанияларды текшерүү
-    const companiesRes = await fetch("http://127.0.0.1:8001/api/v1/companies/", {
-        headers: {
-            "Authorization": "Bearer " + data.access
-        }
+    const companiesRes = await fetch(window.API_BASE + "/api/v1/companies/", {
+    headers: {
+        "Authorization": "Bearer " + data.access
+    }
     });
+
 
     const companies = await companiesRes.json();
 

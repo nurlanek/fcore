@@ -17,7 +17,105 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 
-#: templates/company/create.html:11
+
+#: templates/company/create.html:
+
+msgid "Add Account"
+msgstr "Эсеп кошуу"
+
+msgid "Save"
+msgstr "Сактоо"
+
+msgid "Financial Reports"
+msgstr "Финансылык отчеттор"
+
+msgid "Net Profit"
+msgstr "Таза пайда"
+
+msgid "Total Income"
+msgstr "Жалпы киреше"
+
+msgid "Total Expense"
+msgstr "Жалпы чыгаша"
+
+msgid "Debit"
+msgstr "Дебит"
+
+msgid "Credit"
+msgstr "Кредит"
+
+msgid "Type"
+msgstr "Түрү"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Actions"
+msgstr "Аракеттер"
+
+msgid "Operations"
+msgstr "Операциялар"
+
+msgid "Switch Company"
+msgstr "Компанияны которуу"
+
+msgid "Details"
+msgstr "Толугураак"
+
+msgid "First Client"
+msgstr "Биринчи кардар"
+
+msgid "First Supplier"
+msgstr "Биринчи камсыздоочу"
+
+msgid "First Subscriber"
+msgstr "Биринчи жазылуучу"
+
+msgid "First Employees"
+msgstr "Биринчи кызматкерлер"
+
+msgid "Marketing"
+msgstr "Маркетинг"
+
+msgid "Office Rent"
+msgstr "Офис ижарасы"
+
+msgid "Salary"
+msgstr "Айлык акы"
+
+msgid "Sales Income"
+msgstr "Сатуудан түшкөн киреше"
+
+msgid "Service Income"
+msgstr "Кызмат көрсөтүүдөн түшкөн киреше"
+
+msgid "Tax"
+msgstr "Салык"
+
+msgid "Transport"
+msgstr "Транспорт"
+
+msgid "Users"
+msgstr "Колдонуучулар"
+
+msgid "Directories"
+msgstr "Каталогдор"
+
+msgid "Logout"
+msgstr "Чыгуу"
+
+msgid "Trial Balance"
+msgstr "Сыноо балансы"
+
+msgid "Transaction History"
+msgstr "Транзакциялар тарыхы"
+
+msgid "Partners"
+msgstr "Өнөктөштөр"
+
+msgid "Reasons"
+msgstr "Себептер"
+
 msgid "Create Company"
 msgstr "Компания түзүү"
 
@@ -43,10 +141,7 @@ msgid "Role"
 msgstr "Ролу"
 
 msgid "Company Settings"
-msgstr "Компаниянын жөндөөлөрү"
-
-msgid "Save"
-msgstr "Сактоо"
+msgstr "Компания жөндөөлөрү"
 
 msgid "Dashboard"
 msgstr "Башкаруу панели"
@@ -85,20 +180,13 @@ msgid "Balance"
 msgstr "Калдык"
 
 msgid "Profit & Loss"
-msgstr "Киреше-Чыгаша"
-
+msgstr "Киреше жана чыгаша"
 
 msgid "New Transaction"
-msgstr "Транзакция кошуу"
-
-msgid "Company settings"
-msgstr "Фирма жөндөмдөрү"
+msgstr "Жаңы транзакция"
 
 msgid "Companies"
-msgstr "Фирмалар"
-
-msgid "Profile settings"
-msgstr "Профил жөндөмдөрү"
+msgstr "Компаниялар"
 
 msgid "Transaction type"
 msgstr "Транзакциянын түрү"

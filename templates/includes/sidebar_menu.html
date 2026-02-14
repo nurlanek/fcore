@@ -1,0 +1,154 @@
+{% load i18n %}
+{% load static %}
+
+        <!-- Dashboard -->
+    <a class="nav-link mb-2" href="/dashboard/">
+        <i class="bi bi-speedometer2 me-2"></i> {% trans "Dashboard" %}
+    </a>
+
+    <div class="accordion" id="sidebarAccordion">
+
+        <!-- 1️⃣ Operations -->
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed py-2 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne">
+                    <i class="bi bi-gear me-2"></i> {% trans "Operations" %}
+                </button>
+            </h2>
+            <div id="collapseOne"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#sidebarAccordion">
+                <div class="accordion-body py-1">
+                    <ul class="nav flex-column small">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/transactions/new/">
+                                <i class="bi bi-plus-circle text-success me-2"></i>
+                                {% trans "New Transaction" %}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/transactions/">
+                                <i class="bi bi-list-ul me-2"></i>
+                                {% trans "Transaction History" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2️⃣ Financial Reports -->
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo">
+                    <i class="bi bi-graph-up me-2"></i> {% trans "Financial Reports" %}
+                </button>
+            </h2>
+            <div id="collapseTwo"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#sidebarAccordion">
+                <div class="accordion-body py-1">
+                    <ul class="nav flex-column small">
+                        <li><a class="nav-link" href="/reports/balance/">
+                            <i class="bi bi-file-earmark-bar-graph me-2"></i>
+                            {% trans "Balance Sheet" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/reports/pl/">
+                            <i class="bi bi-graph-up-arrow me-2"></i>
+                            {% trans "Profit & Loss" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/reports/trial/">
+                            <i class="bi bi-clipboard-data me-2"></i>
+                            {% trans "Trial Balance" %}
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3️⃣ Directories -->
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree">
+                    <i class="bi bi-folder me-2"></i> {% trans "Directories" %}
+                </button>
+            </h2>
+            <div id="collapseThree"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#sidebarAccordion">
+                <div class="accordion-body py-1">
+                    <ul class="nav flex-column small">
+                        <li><a class="nav-link" href="/accounts/create/">
+                            <i class="bi bi-wallet2 me-2"></i>
+                            {% trans "Add Account" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/partners/">
+                            <i class="bi bi-people me-2"></i>
+                            {% trans "Partners" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/reasons/">
+                            <i class="bi bi-tags me-2"></i>
+                            {% trans "Reasons" %}
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4️⃣ Administration -->
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour">
+                    <i class="bi bi-shield-lock me-2"></i> {% trans "Administration" %}
+                </button>
+            </h2>
+            <div id="collapseFour"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#sidebarAccordion">
+                <div class="accordion-body py-1">
+                    <ul class="nav flex-column small">
+                        <li><a class="nav-link" href="/admin/users/">
+                            <i class="bi bi-person-gear me-2"></i>
+                            {% trans "Users" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/companies/">
+                            <i class="bi bi-buildings me-2"></i>
+                            {% trans "Companies" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/company/settings/">
+                            <i class="bi bi-gear me-2"></i>
+                            {% trans "Company settings" %}
+                        </a></li>
+                        <li><a class="nav-link" href="/profile/settings/">
+                            <i class="bi bi-person-circle me-2"></i>
+                            {% trans "Profile settings" %}
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Company Switch -->
+    <div class="px-3 mt-4">
+        <hr>
+        <label class="small text-muted fw-bold text-uppercase" style="font-size: 0.65rem;">
+            {% trans "Switch Company" %}
+        </label>
+        <select id="companySelect"
+                class="form-select form-select-sm border-0 bg-light shadow-sm mt-2">
+        </select>
+    </div>

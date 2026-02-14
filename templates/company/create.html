@@ -17,6 +17,15 @@
 
             <label class="form-label">{% trans "Base currency" %}</label>
             <select class="form-select mb-4" id="currency"></select>
+            <!-- Тандалган валютанын астына кошуңуз -->
+            <label>{% trans "Rate Provider (Bank)" %}</label>
+            <select class="form-select mb-3" id="rate_provider">
+                <option value="GLOBAL">Global (Default)</option>
+                <option value="NBKR">Кыргызстан (NBKR)</option>
+                <option value="TCMB">Түркия (TCMB)</option>
+                <option value="CBU">Өзбекстан (CBU)</option>
+            </select>
+
 
             <button class="btn btn-primary w-100">{% trans "Create" %}</button>
 
@@ -31,53 +40,45 @@
 </div>
 
 <script>
-
-
+// Баракча жүктөлгөндө валюталардын тизмесин алып келебиз
 document.addEventListener("DOMContentLoaded", () => {
-    loadCurrenciesGlobal("currency"); // "currency" бул селекттин ID-си
+    loadCurrencies();
 });
 
+// Валюталарды серверден жүктөө функциясы
 async function loadCurrencies(){
-    console.log("Loading currencies...");
-
     const token = localStorage.getItem("access");
-
-    const res = await fetch("http://127.0.0.1:8001/api/v1/currencies/", {
+    // window.API_BASE колдонуу менен URL бир эле жерден башкарылат [1]
+    const res = await fetch(window.API_BASE + "/api/v1/currencies/", {
         headers: {
             "Authorization": "Bearer " + token
         }
     });
 
-    console.log("Status:", res.status);
-
     const data = await res.json();
-    console.log("Currencies:", data);
-
     const sel = document.getElementById("currency");
-
-    if(!sel){
-        console.error("currency select not found");
-        return;
-    }
+    if(!sel) return;
 
     sel.innerHTML = "";
-
     data.forEach(c => {
         const opt = document.createElement("option");
-        opt.value = c.id;
+        opt.value = c.id; // Backend күткөн валюта ID-си [2]
         opt.textContent = c.code + " - " + c.name;
         sel.appendChild(opt);
     });
 }
 
+// Форманы сактоо (Түзүү баскычы басылганда)
 document.getElementById("companyForm").onsubmit = async function(e){
     e.preventDefault();
 
     const name = document.getElementById("name").value;
     const currency = document.getElementById("currency").value;
+    const rate_provider = document.getElementById("rate_provider").value; // Тандалган банк
     const token = localStorage.getItem("access");
 
-    const res = await fetch("http://127.0.0.1:8001/api/v1/companies/create/", {
+    // window.API_BASE колдонуу менен URL оңдолду [1]
+    const res = await fetch(window.API_BASE + "/api/v1/companies/create/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -85,16 +86,18 @@ document.getElementById("companyForm").onsubmit = async function(e){
         },
         body: JSON.stringify({
             name: name,
-            base_currency: currency
+            base_currency: currency,
+            rate_provider: rate_provider // Тандалган банкты серверге жиберебиз
         })
     });
 
     const data = await res.json();
 
     if(res.ok){
+        // Компания түзүлгөндөн кийин анын ID-син сактап, панелге өтөбүз [2]
         localStorage.setItem("company_id", data.id);
         window.location.href = "/dashboard/";
-    }else{
+    } else {
         document.getElementById("msg").innerHTML =
             "<span class='text-danger'>" + JSON.stringify(data) + "</span>";
     }
