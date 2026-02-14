@@ -1,8 +1,15 @@
-{% extends "base.html" %}{% load i18n %}
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
 <h4>{% trans "Trial Balance" %}</h4>
 <table class="table table-bordered">
-    <thead><tr><th>{% trans "Code" %}</th><th>{% trans "Account" %}</th><th>Debit</th><th>Credit</th><th>{% trans "Balance" %}</th></tr></thead>
+    <thead><tr>
+        <th>{% trans "Code" %}</th>
+        <th>{% trans "Account" %}</th>
+        <th>{% trans "Debit" %}</th>
+        <th>{% trans "Credit" %}</th>
+        <th>{% trans "Balance" %}</th>
+    </tr></thead>
     <tbody id="rows"></tbody>
 </table>
 <script>

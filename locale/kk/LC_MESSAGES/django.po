@@ -1,0 +1,263 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: fcore 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-15 00:56+0600\n"
+"PO-Revision-Date: 2026-02-15 16:30+0600\n"
+"Last-Translator: Nuri Musa\n"
+"Language-Team: Kazakh\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "Add Account"
+msgstr "Шот қосу"
+
+msgid "Account name"
+msgstr "Шот атауы"
+
+msgid "Asset"
+msgstr "Активтер"
+
+msgid "Liability"
+msgstr "Міндеттемелер"
+
+msgid "Equity"
+msgstr "Капитал"
+
+msgid "Income"
+msgstr "Кіріс"
+
+msgid "Expense"
+msgstr "Шығыс"
+
+msgid "Code (1000)"
+msgstr "Код (1000)"
+
+msgid "Save"
+msgstr "Сақтау"
+
+msgid "Create User"
+msgstr "Пайдаланушы құру"
+
+msgid "Password"
+msgstr "Құпия сөз"
+
+msgid "admin"
+msgstr "Әкімші"
+
+msgid "accountant"
+msgstr "Бухгалтер"
+
+msgid "manager"
+msgstr "Менеджер"
+
+msgid "viewer"
+msgstr "Қараушы"
+
+msgid "Create"
+msgstr "Құру"
+
+msgid "Company Users"
+msgstr "Компания пайдаланушылары"
+
+msgid "+ Create User"
+msgstr "+ Пайдаланушы құру"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Company"
+msgstr "Компания"
+
+msgid "Role"
+msgstr "Рөлі"
+
+msgid "Active"
+msgstr "Белсенді"
+
+msgid "Actions"
+msgstr "Әрекеттер"
+
+msgid "Edit User"
+msgstr "Пайдаланушыны өңдеу"
+
+msgid "Create Company"
+msgstr "Компания құру"
+
+msgid "Company name"
+msgstr "Компания атауы"
+
+msgid "Base currency"
+msgstr "Негізгі валюта"
+
+msgid "Rate Provider (Bank)"
+msgstr "Курс жеткізуші (Банк)"
+
+msgid "My Companies"
+msgstr "Менің компанияларым"
+
+msgid "+ New company"
+msgstr "+ Жаңа компания"
+
+msgid "Name"
+msgstr "Атауы"
+
+msgid "Company Settings"
+msgstr "Компания баптаулары"
+
+msgid "Saved"
+msgstr "Сақталды"
+
+msgid "Dashboard"
+msgstr "Басқару панелі"
+
+msgid "Profile settings"
+msgstr "Профиль баптаулары"
+
+msgid "Company settings"
+msgstr "Компания баптаулары"
+
+msgid "Logout"
+msgstr "Шығу"
+
+msgid "Operations"
+msgstr "Операциялар"
+
+msgid "New Transaction"
+msgstr "Жаңа транзакция"
+
+msgid "Transaction History"
+msgstr "Транзакциялар тарихы"
+
+msgid "Financial Reports"
+msgstr "Қаржылық есептер"
+
+msgid "Balance Sheet"
+msgstr "Баланстық есеп"
+
+msgid "Profit & Loss"
+msgstr "Пайда және шығын"
+
+msgid "Trial Balance"
+msgstr "Айналым-сальдо ведомосы"
+
+msgid "Directories"
+msgstr "Анықтамалықтар"
+
+msgid "Partners"
+msgstr "Серіктестер"
+
+msgid "Partner Types"
+msgstr "Серіктес түрлері"
+
+msgid "Reasons"
+msgstr "Себептер"
+
+msgid "Administration"
+msgstr "Әкімшілік"
+
+msgid "Users"
+msgstr "Пайдаланушылар"
+
+msgid "Companies"
+msgstr "Компаниялар"
+
+msgid "Switch Company"
+msgstr "Компанияны ауыстыру"
+
+msgid "Add Partner"
+msgstr "Серіктес қосу"
+
+msgid "Type"
+msgstr "Түрі"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Partner"
+msgstr "Серіктес"
+
+msgid "Edit Partner"
+msgstr "Серіктесті өңдеу"
+
+msgid "Are you sure?"
+msgstr "Сіз сенімдісіз бе?"
+
+msgid "Transaction Reasons"
+msgstr "Транзакция себептері"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Delete"
+msgstr "Жою"
+
+msgid "Add Type"
+msgstr "Түр қосу"
+
+msgid "Partner Type"
+msgstr "Серіктес түрі"
+
+msgid "Profile Settings"
+msgstr "Профиль баптаулары"
+
+msgid "Language"
+msgstr "Тіл"
+
+msgid "Preferred currency"
+msgstr "Таңдалған валюта"
+
+msgid "Balance"
+msgstr "Қалдық"
+
+msgid "Total Income"
+msgstr "Жалпы кіріс"
+
+msgid "Total Expense"
+msgstr "Жалпы шығыс"
+
+msgid "Net Profit"
+msgstr "Таза пайда"
+
+msgid "Account"
+msgstr "Шот"
+
+msgid "Debit"
+msgstr "Дебет"
+
+msgid "Credit"
+msgstr "Кредит"
+
+msgid "Date"
+msgstr "Күні"
+
+msgid "Description"
+msgstr "Сипаттамасы"
+
+msgid "Details"
+msgstr "Толығырақ"
+
+msgid "Transaction type"
+msgstr "Транзакция түрі"
+
+msgid "Select Partner"
+msgstr "Серіктесті таңдаңыз"
+
+msgid "Reason"
+msgstr "Себеп"
+
+msgid "Select Reason"
+msgstr "Себепті таңдаңыз"
+
+msgid "Amount"
+msgstr "Сомасы"
+
+msgid "Save Transaction"
+msgstr "Транзакцияны сақтау"
+
+msgid "Transaction saved successfully"
+msgstr "Транзакция сәтті сақталды"

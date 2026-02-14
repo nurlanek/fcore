@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fcore 1.0\n"
-"POT-Creation-Date: 2026-01-22 13:17+0600\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-15 00:16+0600\n"
 "PO-Revision-Date: 2026-01-26 10:30+0600\n"
 "Last-Translator: Nuri Musa\n"
 "Language-Team: Kyrgyz\n"
@@ -16,183 +17,407 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-
-
-#: templates/company/create.html:
-
+#: .\templates\accounts\create.html:8 .\templates\includes\sidebar_menu.html:92
 msgid "Add Account"
 msgstr "Эсеп кошуу"
 
+#: .\templates\accounts\create.html:12
+msgid "Account name"
+msgstr "Эсептин аталышы"
+
+#: .\templates\accounts\create.html:15
+msgid "Asset"
+msgstr "Активдер"
+
+#: .\templates\accounts\create.html:16
+msgid "Liability"
+msgstr "Милдеттенмелер"
+
+#: .\templates\accounts\create.html:17
+msgid "Equity"
+msgstr "Өздүк капитал"
+
+#: .\templates\accounts\create.html:18 .\templates\partners\reasons.html:18
+#: .\templates\transactions\new.html:18
+msgid "Income"
+msgstr "Киреше"
+
+#: .\templates\accounts\create.html:19 .\templates\partners\reasons.html:17
+#: .\templates\transactions\new.html:17
+msgid "Expense"
+msgstr "Чыгаша"
+
+#: .\templates\accounts\create.html:24
+msgid "Code (1000)"
+msgstr "Код (1000)"
+
+#: .\templates\accounts\create.html:26 .\templates\admin\users.html:48
+#: .\templates\company\settings.html:16 .\templates\partners\list.html:53
+#: .\templates\partners\reasons.html:22 .\templates\partners\types.html:31
+#: .\templates\profile\settings.html:35
 msgid "Save"
 msgstr "Сактоо"
 
-msgid "Financial Reports"
-msgstr "Финансылык отчеттор"
+#: .\templates\admin\create_user.html:6
+msgid "Create User"
+msgstr "Колдонуучу кошуу"
 
-msgid "Net Profit"
-msgstr "Таза пайда"
+#: .\templates\admin\create_user.html:11
+msgid "Password"
+msgstr "Сырсөз"
 
-msgid "Total Income"
-msgstr "Жалпы киреше"
+#: .\templates\admin\create_user.html:16 .\templates\admin\users.html:38
+msgid "admin"
+msgstr "админ"
 
-msgid "Total Expense"
-msgstr "Жалпы чыгаша"
+#: .\templates\admin\create_user.html:17 .\templates\admin\users.html:39
+msgid "accountant"
+msgstr "бухгалтер"
 
-msgid "Debit"
-msgstr "Дебит"
+#: .\templates\admin\create_user.html:18 .\templates\admin\users.html:40
+msgid "manager"
+msgstr "менеджер"
 
-msgid "Credit"
-msgstr "Кредит"
+#: .\templates\admin\create_user.html:19 .\templates\admin\users.html:41
+msgid "viewer"
+msgstr "көрүүчү"
 
-msgid "Type"
-msgstr "Түрү"
-
-msgid "Phone"
-msgstr "Телефон"
-
-msgid "Actions"
-msgstr "Аракеттер"
-
-msgid "Operations"
-msgstr "Операциялар"
-
-msgid "Switch Company"
-msgstr "Компанияны которуу"
-
-msgid "Details"
-msgstr "Толугураак"
-
-msgid "First Client"
-msgstr "Биринчи кардар"
-
-msgid "First Supplier"
-msgstr "Биринчи камсыздоочу"
-
-msgid "First Subscriber"
-msgstr "Биринчи жазылуучу"
-
-msgid "First Employees"
-msgstr "Биринчи кызматкерлер"
-
-msgid "Marketing"
-msgstr "Маркетинг"
-
-msgid "Office Rent"
-msgstr "Офис ижарасы"
-
-msgid "Salary"
-msgstr "Айлык акы"
-
-msgid "Sales Income"
-msgstr "Сатуудан түшкөн киреше"
-
-msgid "Service Income"
-msgstr "Кызмат көрсөтүүдөн түшкөн киреше"
-
-msgid "Tax"
-msgstr "Салык"
-
-msgid "Transport"
-msgstr "Транспорт"
-
-msgid "Users"
-msgstr "Колдонуучулар"
-
-msgid "Directories"
-msgstr "Каталогдор"
-
-msgid "Logout"
-msgstr "Чыгуу"
-
-msgid "Trial Balance"
-msgstr "Сыноо балансы"
-
-msgid "Transaction History"
-msgstr "Транзакциялар тарыхы"
-
-msgid "Partners"
-msgstr "Өнөктөштөр"
-
-msgid "Reasons"
-msgstr "Себептер"
-
-msgid "Create Company"
-msgstr "Компания түзүү"
-
-msgid "Company name"
-msgstr "Компаниянын аталышы"
-
-msgid "Base currency"
-msgstr "Негизги валюта"
-
+#: .\templates\admin\create_user.html:22 .\templates\company\create.html:30
 msgid "Create"
 msgstr "Түзүү"
 
-msgid "My Companies"
-msgstr "Менин компанияларым"
+#: .\templates\admin\users.html:6
+msgid "Company Users"
+msgstr "Бул компаниянын колдонуучулары"
 
-msgid "+ New company"
-msgstr "+ Жаңы компания"
+#: .\templates\admin\users.html:7
+msgid "+ Create User"
+msgstr "+ Колдонуучу кошуу"
 
-msgid "Name"
-msgstr "Аты"
+#: .\templates\admin\users.html:13 .\templates\admin\users.html:33
+msgid "Email"
+msgstr "Email"
 
+#: .\templates\admin\users.html:14
+msgid "Company"
+msgstr "Компаниялар"
+
+#: .\templates\admin\users.html:15 .\templates\admin\users.html:36
+#: .\templates\company\list.html:20
 msgid "Role"
 msgstr "Ролу"
 
+#: .\templates\admin\users.html:16 .\templates\admin\users.html:45
+msgid "Active"
+msgstr "Активдүү"
+
+#: .\templates\admin\users.html:17 .\templates\partners\list.html:17
+#: .\templates\partners\reasons.html:32 .\templates\partners\types.html:16
+msgid "Actions"
+msgstr "Аракеттер"
+
+#: .\templates\admin\users.html:29
+msgid "Edit User"
+msgstr "Колдонуучуну өзгөртүү"
+
+#: .\templates\company\create.html:11
+msgid "Create Company"
+msgstr "Компания түзүү"
+
+#: .\templates\company\create.html:15 .\templates\company\settings.html:10
+msgid "Company name"
+msgstr "Компаниянын аталышы"
+
+#: .\templates\company\create.html:18 .\templates\company\settings.html:13
+msgid "Base currency"
+msgstr "Базалык валюта"
+
+#: .\templates\company\create.html:21
+msgid "Rate Provider (Bank)"
+msgstr "Курсту берүүчү (Банк)"
+
+#: .\templates\company\list.html:12
+msgid "My Companies"
+msgstr "Менин компанияларым"
+
+#: .\templates\company\list.html:13
+msgid "+ New company"
+msgstr "+ Жаңы компания"
+
+#: .\templates\company\list.html:19 .\templates\partners\list.html:14
+#: .\templates\partners\list.html:34 .\templates\partners\reasons.html:30
+#: .\templates\partners\types.html:15 .\templates\reports\balance.html:14
+msgid "Name"
+msgstr "Аты"
+
+#: .\templates\company\settings.html:8
 msgid "Company Settings"
 msgstr "Компания жөндөөлөрү"
 
+#: .\templates\company\settings.html:69
+msgid "Saved"
+msgstr "Сакталды"
+
+#: .\templates\dashboard\index.html:6 .\templates\includes\sidebar_menu.html:6
 msgid "Dashboard"
 msgstr "Башкаруу панели"
 
-msgid "Profile Settings"
+#: .\templates\includes\navbar.html:34
+#: .\templates\includes\sidebar_menu.html:140
+msgid "Profile settings"
 msgstr "Профиль жөндөөлөрү"
 
-msgid "Language"
-msgstr "Тил"
+#: .\templates\includes\navbar.html:39
+#: .\templates\includes\sidebar_menu.html:136
+msgid "Company settings"
+msgstr "Компания жөндөөлөрү"
 
-msgid "Preferred currency"
-msgstr "Тандалган валюта"
+#: .\templates\includes\navbar.html:45
+msgid "Logout"
+msgstr "Чыгуу"
 
-msgid "Expense Account"
-msgstr "Чыгым эсеби"
+#: .\templates\includes\sidebar_menu.html:18
+msgid "Operations"
+msgstr "Операциялар"
 
-msgid "Amount"
-msgstr "Суммасы"
-
-msgid "Date"
-msgstr "Күнү"
-
-msgid "Description"
-msgstr "Сүрөттөмөсү"
-
-msgid "Save Transaction"
-msgstr "Транзакцияны сактоо"
-
-msgid "Balance Sheet"
-msgstr "Баланс ведомосту"
-
-msgid "Code"
-msgstr "Код"
-
-msgid "Balance"
-msgstr "Калдык"
-
-msgid "Profit & Loss"
-msgstr "Киреше жана чыгаша"
-
+#: .\templates\includes\sidebar_menu.html:29
+#: .\templates\transactions\list.html:8 .\templates\transactions\new.html:9
 msgid "New Transaction"
 msgstr "Жаңы транзакция"
 
+#: .\templates\includes\sidebar_menu.html:35
+#: .\templates\transactions\list.html:7
+msgid "Transaction History"
+msgstr "Транзакциялар тарыхы"
+
+#: .\templates\includes\sidebar_menu.html:50
+msgid "Financial Reports"
+msgstr "Финансылык отчеттор"
+
+#: .\templates\includes\sidebar_menu.html:60 .\templates\reports\balance.html:8
+msgid "Balance Sheet"
+msgstr "Баланс ведомосту"
+
+#: .\templates\includes\sidebar_menu.html:64 .\templates\reports\pl.html:3
+msgid "Profit & Loss"
+msgstr "Киреше жана чыгаша"
+
+#: .\templates\includes\sidebar_menu.html:68
+#: .\templates\reports\trial_balance.html:4
+msgid "Trial Balance"
+msgstr "Сыноо балансы"
+
+#: .\templates\includes\sidebar_menu.html:82
+msgid "Directories"
+msgstr "Каталогдор"
+
+#: .\templates\includes\sidebar_menu.html:96 .\templates\partners\list.html:7
+#: .\templates\transactions\list.html:16
+msgid "Partners"
+msgstr "Өнөктөштөр"
+
+#: .\templates\includes\sidebar_menu.html:100 .\templates\partners\types.html:7
+msgid "Partner Types"
+msgstr "Өнөктөш типи"
+
+#: .\templates\includes\sidebar_menu.html:104
+#: .\templates\transactions\list.html:17
+msgid "Reasons"
+msgstr "Себептер"
+
+#: .\templates\includes\sidebar_menu.html:118
+msgid "Administration"
+msgstr "Башкаруу"
+
+#: .\templates\includes\sidebar_menu.html:128
+msgid "Users"
+msgstr "Колдонуучулар"
+
+#: .\templates\includes\sidebar_menu.html:132
 msgid "Companies"
 msgstr "Компаниялар"
 
-msgid "Transaction type"
-msgstr "Транзакциянын түрү"
+#: .\templates\includes\sidebar_menu.html:153
+msgid "Switch Company"
+msgstr "Компанияны өзгөртүү"
 
+#: .\templates\partners\list.html:9 .\templates\partners\list.html:99
+msgid "Add Partner"
+msgstr "Өнөктөш кошуу"
+
+#: .\templates\partners\list.html:15 .\templates\partners\list.html:39
+#: .\templates\partners\reasons.html:31
+msgid "Type"
+msgstr "Түрү"
+
+#: .\templates\partners\list.html:16 .\templates\partners\list.html:44
+msgid "Phone"
+msgstr "Телефон"
+
+#: .\templates\partners\list.html:30 .\templates\transactions\new.html:32
+msgid "Partner"
+msgstr "Өнөктөш"
+
+#: .\templates\partners\list.html:87
+msgid "Edit Partner"
+msgstr "Өнөктөш өзгөртүү"
+
+#: .\templates\partners\list.html:135
+msgid "Are you sure?"
+msgstr "Макулсузбу?"
+
+#: .\templates\partners\reasons.html:6
+msgid "Transaction Reasons"
+msgstr "Транзакциянын себеби"
+
+#: .\templates\partners\reasons.html:29 .\templates\partners\types.html:14
+#: .\templates\reports\balance.html:13 .\templates\reports\trial_balance.html:7
+msgid "Code"
+msgstr "Код"
+
+#: .\templates\partners\reasons.html:50
+msgid "Delete"
+msgstr "Өчүрүү"
+
+#: .\templates\partners\types.html:8
+msgid "Add Type"
+msgstr "Тип кошуу"
+
+#: .\templates\partners\types.html:27
+msgid "Partner Type"
+msgstr "Өнөктөш типи"
+
+#: .\templates\profile\settings.html:12
+msgid "Profile Settings"
+msgstr "Профиль жөндөөлөрү"
+
+#: .\templates\profile\settings.html:16
+msgid "Language"
+msgstr "Тил"
+
+#: .\templates\profile\settings.html:32
+msgid "Preferred currency"
+msgstr "Тандалган валюта"
+
+#: .\templates\reports\balance.html:15
+#: .\templates\reports\trial_balance.html:11
+msgid "Balance"
+msgstr "Калдык"
+
+#: .\templates\reports\pl.html:5
+msgid "Total Income"
+msgstr "Жалпы киреше"
+
+#: .\templates\reports\pl.html:6
+msgid "Total Expense"
+msgstr "Жалпы чыгаша"
+
+#: .\templates\reports\pl.html:8
+msgid "Net Profit"
+msgstr "Таза пайда"
+
+#: .\templates\reports\trial_balance.html:8
+#: .\templates\transactions\new.html:50
 msgid "Account"
 msgstr "Эсеп"
 
-msgid "Menu"
-msgstr "Меню"
+#: .\templates\reports\trial_balance.html:9
+msgid "Debit"
+msgstr "Дебит"
+
+#: .\templates\reports\trial_balance.html:10
+msgid "Credit"
+msgstr "Кредит"
+
+#: .\templates\transactions\list.html:14 .\templates\transactions\new.html:24
+msgid "Date"
+msgstr "Күнү"
+
+#: .\templates\transactions\list.html:15 .\templates\transactions\new.html:63
+msgid "Description"
+msgstr "Сүрөттөмөсү"
+
+#: .\templates\transactions\list.html:18
+msgid "Details"
+msgstr "Толугураак"
+
+#: .\templates\transactions\new.html:15
+msgid "Transaction type"
+msgstr "Транзакциянын түрү"
+
+#: .\templates\transactions\new.html:34
+
+msgid "Select Partner"
+msgstr "Өнөктөш тандоо"
+
+#: .\templates\transactions\new.html:40
+
+msgid "Reason"
+msgstr "Себептер"
+
+#: .\templates\transactions\new.html:42 .\templates\transactions\new.html:129
+msgid "Select Reason"
+msgstr "Себеп танда"
+
+#: .\templates\transactions\new.html:56
+msgid "Amount"
+msgstr "Суммасы"
+
+#: .\templates\transactions\new.html:67
+msgid "Save Transaction"
+msgstr "Транзакцияны сактоо"
+
+#: .\templates\transactions\new.html:159
+msgid "Transaction saved successfully"
+msgstr "Транзакция ийгиликтүү сакталды"
+
+#~ msgid "Suppliers"
+#~ msgstr "Поставщик"
+
+#~ msgid "Subscribers"
+#~ msgstr "Катталуучулар"
+
+#~ msgid "Employees"
+#~ msgstr "Жумушчулар"
+
+#~ msgid "Clients"
+#~ msgstr "Кардарлар"
+
+#~ msgid "First Client"
+#~ msgstr "Биринчи кардар"
+
+#~ msgid "First Supplier"
+#~ msgstr "Биринчи камсыздоочу"
+
+#~ msgid "First Subscriber"
+#~ msgstr "Биринчи жазылуучу"
+
+#~ msgid "First Employees"
+#~ msgstr "Биринчи кызматкерлер"
+
+#~ msgid "Marketing"
+#~ msgstr "Маркетинг"
+
+#~ msgid "Office Rent"
+#~ msgstr "Офис ижарасы"
+
+#~ msgid "Salary"
+#~ msgstr "Айлык акы"
+
+#~ msgid "Sales Income"
+#~ msgstr "Сатуудан түшкөн киреше"
+
+#~ msgid "Service Income"
+#~ msgstr "Кызмат көрсөтүүдөн түшкөн киреше"
+
+#~ msgid "Tax"
+#~ msgstr "Салык"
+
+#~ msgid "Transport"
+#~ msgstr "Транспорт"
+
+#~ msgid "Expense Account"
+#~ msgstr "Чыгым эсеби"
+
+#~ msgid "Menu"
+#~ msgstr "Меню"

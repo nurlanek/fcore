@@ -1,106 +1,371 @@
 # Russian translations for fcore project
+# Copyright (C)
+# This file is distributed under the same license as the project.
 # Author: Nuri Musa
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcore 1.0\n"
-"POT-Creation-Date: 2026-01-22 13:17+0600\n"
-"PO-Revision-Date: 2026-01-26 10:30+0600\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-15 00:53+0600\n"
+"PO-Revision-Date: 2026-02-15 16:00+0600\n"
 "Last-Translator: Nuri Musa\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: .\templates\accounts\create.html:8 .\templates\includes\sidebar_menu.html:92
+msgid "Add Account"
+msgstr "Добавить счет"
 
-msgid "Create Company"
-msgstr "Создать компанию"
+#: .\templates\accounts\create.html:12
+msgid "Account name"
+msgstr "Название счета"
 
-msgid "Company name"
-msgstr "Название компании"
+#: .\templates\accounts\create.html:15
+msgid "Asset"
+msgstr "Активы"
 
-msgid "Base currency"
-msgstr "Базовая валюта"
+#: .\templates\accounts\create.html:16
+msgid "Liability"
+msgstr "Обязательства"
 
-msgid "Create"
-msgstr "Создать"
+#: .\templates\accounts\create.html:17
+msgid "Equity"
+msgstr "Капитал"
 
-msgid "My Companies"
-msgstr "Мои компании"
+#: .\templates\accounts\create.html:18 .\templates\partners\reasons.html:18
+#: .\templates\transactions\new.html:18
+msgid "Income"
+msgstr "Доход"
 
-msgid "+ New company"
-msgstr "+ Новая компания"
+#: .\templates\accounts\create.html:19 .\templates\partners\reasons.html:17
+#: .\templates\transactions\new.html:17
+msgid "Expense"
+msgstr "Расход"
 
-msgid "Name"
-msgstr "Название"
+#: .\templates\accounts\create.html:24
+msgid "Code (1000)"
+msgstr "Код (1000)"
 
-msgid "Role"
-msgstr "Роль"
-
-msgid "Company Settings"
-msgstr "Настройки компании"
-
+#: .\templates\accounts\create.html:26 .\templates\admin\users.html:48
+#: .\templates\company\settings.html:16 .\templates\partners\list.html:53
+#: .\templates\partners\reasons.html:22 .\templates\partners\types.html:31
+#: .\templates\profile\settings.html:35
 msgid "Save"
 msgstr "Сохранить"
 
+#: .\templates\admin\create_user.html:6
+msgid "Create User"
+msgstr "Создать пользователя"
+
+#: .\templates\admin\create_user.html:11
+msgid "Password"
+msgstr "Пароль"
+
+#: .\templates\admin\create_user.html:16 .\templates\admin\users.html:38
+msgid "admin"
+msgstr "Администратор"
+
+#: .\templates\admin\create_user.html:17 .\templates\admin\users.html:39
+msgid "accountant"
+msgstr "Бухгалтер"
+
+#: .\templates\admin\create_user.html:18 .\templates\admin\users.html:40
+msgid "manager"
+msgstr "Менеджер"
+
+#: .\templates\admin\create_user.html:19 .\templates\admin\users.html:41
+msgid "viewer"
+msgstr "Наблюдатель"
+
+#: .\templates\admin\create_user.html:22 .\templates\company\create.html:30
+msgid "Create"
+msgstr "Создать"
+
+#: .\templates\admin\users.html:6
+msgid "Company Users"
+msgstr "Пользователи компании"
+
+#: .\templates\admin\users.html:7
+msgid "+ Create User"
+msgstr "+ Создать пользователя"
+
+#: .\templates\admin\users.html:13 .\templates\admin\users.html:33
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\admin\users.html:14
+msgid "Company"
+msgstr "Компания"
+
+#: .\templates\admin\users.html:15 .\templates\admin\users.html:36
+#: .\templates\company\list.html:20
+msgid "Role"
+msgstr "Роль"
+
+#: .\templates\admin\users.html:16 .\templates\admin\users.html:45
+msgid "Active"
+msgstr "Активный"
+
+#: .\templates\admin\users.html:17 .\templates\partners\list.html:17
+#: .\templates\partners\reasons.html:32 .\templates\partners\types.html:16
+msgid "Actions"
+msgstr "Действия"
+
+#: .\templates\admin\users.html:29
+msgid "Edit User"
+msgstr "Редактировать пользователя"
+
+#: .\templates\company\create.html:11
+msgid "Create Company"
+msgstr "Создать компанию"
+
+#: .\templates\company\create.html:15 .\templates\company\settings.html:10
+msgid "Company name"
+msgstr "Название компании"
+
+#: .\templates\company\create.html:18 .\templates\company\settings.html:13
+msgid "Base currency"
+msgstr "Базовая валюта"
+
+#: .\templates\company\create.html:21
+msgid "Rate Provider (Bank)"
+msgstr "Поставщик курса (Банк)"
+
+#: .\templates\company\list.html:12
+msgid "My Companies"
+msgstr "Мои компании"
+
+#: .\templates\company\list.html:13
+msgid "+ New company"
+msgstr "+ Новая компания"
+
+#: .\templates\company\list.html:19 .\templates\partners\list.html:14
+#: .\templates\partners\list.html:34 .\templates\partners\reasons.html:30
+#: .\templates\partners\types.html:15 .\templates\reports\balance.html:14
+msgid "Name"
+msgstr "Название"
+
+#: .\templates\company\settings.html:8
+msgid "Company Settings"
+msgstr "Настройки компании"
+
+#: .\templates\company\settings.html:69
+msgid "Saved"
+msgstr "Сохранено"
+
+#: .\templates\dashboard\index.html:6 .\templates\includes\sidebar_menu.html:6
 msgid "Dashboard"
 msgstr "Панель управления"
 
-msgid "Profile Settings"
-msgstr "Настройки профиля"
-
-msgid "Language"
-msgstr "Язык"
-
-msgid "Preferred currency"
-msgstr "Предпочитаемая валюта"
-
-msgid "Expense Account"
-msgstr "Счет расходов"
-
-msgid "Amount"
-msgstr "Сумма"
-
-msgid "Date"
-msgstr "Дата"
-
-msgid "Description"
-msgstr "Описание"
-
-msgid "Save Transaction"
-msgstr "Сохранить транзакцию"
-
-msgid "Balance Sheet"
-msgstr "Бухгалтерский баланс"
-
-msgid "Code"
-msgstr "Код"
-
-msgid "Balance"
-msgstr "Баланс"
-
-msgid "Profit & Loss"
-msgstr "Прибыль и убытки"
-
-msgid "New Transaction"
-msgstr "Новая транзакция"
-
-msgid "Company settings"
-msgstr "Настройки компании"
-
-msgid "Companies"
-msgstr "Компании"
-
+#: .\templates\includes\navbar.html:34
+#: .\templates\includes\sidebar_menu.html:140
 msgid "Profile settings"
 msgstr "Настройки профиля"
 
-msgid "Transaction type"
-msgstr "Тип транзакции"
+#: .\templates\includes\navbar.html:39
+#: .\templates\includes\sidebar_menu.html:136
+msgid "Company settings"
+msgstr "Настройки компании"
 
+#: .\templates\includes\navbar.html:45
+msgid "Logout"
+msgstr "Выйти"
+
+#: .\templates\includes\sidebar_menu.html:18
+msgid "Operations"
+msgstr "Операции"
+
+#: .\templates\includes\sidebar_menu.html:29
+#: .\templates\transactions\list.html:8 .\templates\transactions\new.html:9
+msgid "New Transaction"
+msgstr "Новая транзакция"
+
+#: .\templates\includes\sidebar_menu.html:35
+#: .\templates\transactions\list.html:7
+msgid "Transaction History"
+msgstr "История транзакций"
+
+#: .\templates\includes\sidebar_menu.html:50
+msgid "Financial Reports"
+msgstr "Финансовые отчеты"
+
+#: .\templates\includes\sidebar_menu.html:60 .\templates\reports\balance.html:8
+msgid "Balance Sheet"
+msgstr "Балансовый отчет"
+
+#: .\templates\includes\sidebar_menu.html:64 .\templates\reports\pl.html:3
+msgid "Profit & Loss"
+msgstr "Прибыль и убытки"
+
+#: .\templates\includes\sidebar_menu.html:68
+#: .\templates\reports\trial_balance.html:4
+msgid "Trial Balance"
+msgstr "Оборотно-сальдовая ведомость"
+
+#: .\templates\includes\sidebar_menu.html:82
+msgid "Directories"
+msgstr "Справочники"
+
+#: .\templates\includes\sidebar_menu.html:96 .\templates\partners\list.html:7
+#: .\templates\transactions\list.html:16
+msgid "Partners"
+msgstr "Партнеры"
+
+#: .\templates\includes\sidebar_menu.html:100 .\templates\partners\types.html:7
+msgid "Partner Types"
+msgstr "Типы партнеров"
+
+#: .\templates\includes\sidebar_menu.html:104
+#: .\templates\transactions\list.html:17
+msgid "Reasons"
+msgstr "Причины"
+
+#: .\templates\includes\sidebar_menu.html:118
+msgid "Administration"
+msgstr "Администрирование"
+
+#: .\templates\includes\sidebar_menu.html:128
+msgid "Users"
+msgstr "Пользователи"
+
+#: .\templates\includes\sidebar_menu.html:132
+msgid "Companies"
+msgstr "Компании"
+
+#: .\templates\includes\sidebar_menu.html:153
+msgid "Switch Company"
+msgstr "Сменить компанию"
+
+#: .\templates\partners\list.html:9 .\templates\partners\list.html:99
+msgid "Add Partner"
+msgstr "Добавить партнера"
+
+#: .\templates\partners\list.html:15 .\templates\partners\list.html:39
+#: .\templates\partners\reasons.html:31
+msgid "Type"
+msgstr "Тип"
+
+#: .\templates\partners\list.html:16 .\templates\partners\list.html:44
+msgid "Phone"
+msgstr "Телефон"
+
+#: .\templates\partners\list.html:30 .\templates\transactions\new.html:32
+msgid "Partner"
+msgstr "Партнер"
+
+#: .\templates\partners\list.html:87
+msgid "Edit Partner"
+msgstr "Редактировать партнера"
+
+#: .\templates\partners\list.html:135
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+#: .\templates\partners\reasons.html:6
+msgid "Transaction Reasons"
+msgstr "Причины транзакций"
+
+#: .\templates\partners\reasons.html:29 .\templates\partners\types.html:14
+#: .\templates\reports\balance.html:13 .\templates\reports\trial_balance.html:7
+msgid "Code"
+msgstr "Код"
+
+#: .\templates\partners\reasons.html:50
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\partners\types.html:8
+msgid "Add Type"
+msgstr "Добавить тип"
+
+#: .\templates\partners\types.html:27
+msgid "Partner Type"
+msgstr "Тип партнера"
+
+#: .\templates\profile\settings.html:12
+msgid "Profile Settings"
+msgstr "Настройки профиля"
+
+#: .\templates\profile\settings.html:16
+msgid "Language"
+msgstr "Язык"
+
+#: .\templates\profile\settings.html:32
+msgid "Preferred currency"
+msgstr "Предпочитаемая валюта"
+
+#: .\templates\reports\balance.html:15
+#: .\templates\reports\trial_balance.html:11
+msgid "Balance"
+msgstr "Баланс"
+
+#: .\templates\reports\pl.html:5
+msgid "Total Income"
+msgstr "Общий доход"
+
+#: .\templates\reports\pl.html:6
+msgid "Total Expense"
+msgstr "Общий расход"
+
+#: .\templates\reports\pl.html:8
+msgid "Net Profit"
+msgstr "Чистая прибыль"
+
+#: .\templates\reports\trial_balance.html:8
+#: .\templates\transactions\new.html:50
 msgid "Account"
 msgstr "Счет"
 
-msgid "Menu"
-msgstr "Меню"
+#: .\templates\reports\trial_balance.html:9
+msgid "Debit"
+msgstr "Дебет"
+
+#: .\templates\reports\trial_balance.html:10
+msgid "Credit"
+msgstr "Кредит"
+
+#: .\templates\transactions\list.html:14 .\templates\transactions\new.html:24
+msgid "Date"
+msgstr "Дата"
+
+#: .\templates\transactions\list.html:15 .\templates\transactions\new.html:63
+msgid "Description"
+msgstr "Описание"
+
+#: .\templates\transactions\list.html:18
+msgid "Details"
+msgstr "Подробнее"
+
+#: .\templates\transactions\new.html:15
+msgid "Transaction type"
+msgstr "Тип транзакции"
+
+#: .\templates\transactions\new.html:34
+msgid "Select Partner"
+msgstr "Выберите партнера"
+
+#: .\templates\transactions\new.html:40
+msgid "Reason"
+msgstr "Причина"
+
+#: .\templates\transactions\new.html:42 .\templates\transactions\new.html:129
+msgid "Select Reason"
+msgstr "Выберите причину"
+
+#: .\templates\transactions\new.html:56
+msgid "Amount"
+msgstr "Сумма"
+
+#: .\templates\transactions\new.html:67
+msgid "Save Transaction"
+msgstr "Сохранить транзакцию"
+
+#: .\templates\transactions\new.html:159
+msgid "Transaction saved successfully"
+msgstr "Транзакция успешно сохранена"

@@ -1,28 +1,29 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
 
 <div class="container">
   <div class="col-md-5">
 
-    <h4>Add Account</h4>
+    <h4>{% trans "Add Account" %}</h4>
 
     <form id="accountForm">
 
-      <input class="form-control mb-2" id="name" placeholder="Account name" required>
+      <input class="form-control mb-2" id="name" placeholder="{% trans 'Account name' %}"  required>
 
       <select class="form-select mb-2" id="type">
-        <option value="asset">Asset</option>
-        <option value="liability">Liability</option>
-        <option value="equity">Equity</option>
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
+        <option value="asset">{% trans "Asset" %}</option>
+        <option value="liability">{% trans "Liability" %}</option>
+        <option value="equity">{% trans "Equity" %}</option>
+        <option value="income">{% trans "Income" %}</option>
+        <option value="expense">{% trans "Expense" %}</option>
       </select>
 
       <select class="form-select mb-2" id="currency"></select>
 
-      <input class="form-control mb-2" id="code" placeholder="Code (1000)">
+      <input class="form-control mb-2" id="code" placeholder="{% trans 'Code (1000)' %}">
 
-      <button class="btn btn-primary" type="submit">Save</button>
+      <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
 
     </form>
 

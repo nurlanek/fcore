@@ -1,266 +1,263 @@
-# Turkish translations for fcore project
-# Author: Nuri Musa
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: fcore 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-15 00:56+0600\n"
-"PO-Revision-Date: 2026-02-15 17:00+0600\n"
+"PO-Revision-Date: 2026-02-15 18:10+0600\n"
 "Last-Translator: Nuri Musa\n"
-"Language-Team: Turkish\n"
-"Language: tr\n"
+"Language-Team: Uzbek\n"
+"Language: uz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 
 msgid "Add Account"
-msgstr "Hesap Ekle"
+msgstr "Hisob qo‘shish"
 
 msgid "Account name"
-msgstr "Hesap adı"
+msgstr "Hisob nomi"
 
 msgid "Asset"
-msgstr "Varlık"
+msgstr "Aktivlar"
 
 msgid "Liability"
-msgstr "Yükümlülük"
+msgstr "Majburiyatlar"
 
 msgid "Equity"
-msgstr "Öz Sermaye"
+msgstr "Kapital"
 
 msgid "Income"
-msgstr "Gelir"
+msgstr "Daromad"
 
 msgid "Expense"
-msgstr "Gider"
+msgstr "Xarajat"
 
 msgid "Code (1000)"
 msgstr "Kod (1000)"
 
 msgid "Save"
-msgstr "Kaydet"
+msgstr "Saqlash"
 
 msgid "Create User"
-msgstr "Kullanıcı Oluştur"
+msgstr "Foydalanuvchi yaratish"
 
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parol"
 
 msgid "admin"
-msgstr "Yönetici"
+msgstr "Administrator"
 
 msgid "accountant"
-msgstr "Muhasebeci"
+msgstr "Buxgalter"
 
 msgid "manager"
-msgstr "Yönetici"
+msgstr "Menejer"
 
 msgid "viewer"
-msgstr "Görüntüleyici"
+msgstr "Ko‘ruvchi"
 
 msgid "Create"
-msgstr "Oluştur"
+msgstr "Yaratish"
 
 msgid "Company Users"
-msgstr "Şirket Kullanıcıları"
+msgstr "Kompaniya foydalanuvchilari"
 
 msgid "+ Create User"
-msgstr "+ Kullanıcı Oluştur"
+msgstr "+ Foydalanuvchi yaratish"
 
 msgid "Email"
-msgstr "E-posta"
+msgstr "Email"
 
 msgid "Company"
-msgstr "Şirket"
+msgstr "Kompaniya"
 
 msgid "Role"
 msgstr "Rol"
 
 msgid "Active"
-msgstr "Aktif"
+msgstr "Faol"
 
 msgid "Actions"
-msgstr "İşlemler"
+msgstr "Amallar"
 
 msgid "Edit User"
-msgstr "Kullanıcıyı Düzenle"
+msgstr "Foydalanuvchini tahrirlash"
 
 msgid "Create Company"
-msgstr "Şirket Oluştur"
+msgstr "Kompaniya yaratish"
 
 msgid "Company name"
-msgstr "Şirket adı"
+msgstr "Kompaniya nomi"
 
 msgid "Base currency"
-msgstr "Ana para birimi"
+msgstr "Asosiy valyuta"
 
 msgid "Rate Provider (Bank)"
-msgstr "Kur Sağlayıcı (Banka)"
+msgstr "Kurs ta’minlovchi (Bank)"
 
 msgid "My Companies"
-msgstr "Şirketlerim"
+msgstr "Mening kompaniyalarim"
 
 msgid "+ New company"
-msgstr "+ Yeni şirket"
+msgstr "+ Yangi kompaniya"
 
 msgid "Name"
-msgstr "Ad"
+msgstr "Nomi"
 
 msgid "Company Settings"
-msgstr "Şirket Ayarları"
+msgstr "Kompaniya sozlamalari"
 
 msgid "Saved"
-msgstr "Kaydedildi"
+msgstr "Saqlangan"
 
 msgid "Dashboard"
-msgstr "Kontrol Paneli"
+msgstr "Boshqaruv paneli"
 
 msgid "Profile settings"
-msgstr "Profil Ayarları"
+msgstr "Profil sozlamalari"
 
 msgid "Company settings"
-msgstr "Şirket Ayarları"
+msgstr "Kompaniya sozlamalari"
 
 msgid "Logout"
-msgstr "Çıkış"
+msgstr "Chiqish"
 
 msgid "Operations"
-msgstr "İşlemler"
+msgstr "Operatsiyalar"
 
 msgid "New Transaction"
-msgstr "Yeni İşlem"
+msgstr "Yangi tranzaksiya"
 
 msgid "Transaction History"
-msgstr "İşlem Geçmişi"
+msgstr "Tranzaksiyalar tarixi"
 
 msgid "Financial Reports"
-msgstr "Finansal Raporlar"
+msgstr "Moliyaviy hisobotlar"
 
 msgid "Balance Sheet"
-msgstr "Bilanço"
+msgstr "Balans hisoboti"
 
 msgid "Profit & Loss"
-msgstr "Kâr ve Zarar"
+msgstr "Foyda va zarar"
 
 msgid "Trial Balance"
-msgstr "Mizan"
+msgstr "Aylanma-saldo ведомости"
 
 msgid "Directories"
-msgstr "Kataloglar"
+msgstr "Ma’lumotnomalar"
 
 msgid "Partners"
-msgstr "Partnerler"
+msgstr "Hamkorlar"
 
 msgid "Partner Types"
-msgstr "Ortak Türleri"
+msgstr "Hamkor turlari"
 
 msgid "Reasons"
-msgstr "Nedenler"
+msgstr "Sabablar"
 
 msgid "Administration"
-msgstr "Yönetim"
+msgstr "Ma’muriyat"
 
 msgid "Users"
-msgstr "Kullanıcılar"
+msgstr "Foydalanuvchilar"
 
 msgid "Companies"
-msgstr "Şirketler"
+msgstr "Kompaniyalar"
 
 msgid "Switch Company"
-msgstr "Şirket Değiştir"
+msgstr "Kompaniyani almashtirish"
 
 msgid "Add Partner"
-msgstr "Partner Ekle"
+msgstr "Hamkor qo‘shish"
 
 msgid "Type"
-msgstr "Tür"
+msgstr "Turi"
 
 msgid "Phone"
 msgstr "Telefon"
 
 msgid "Partner"
-msgstr "Ortak"
+msgstr "Hamkor"
 
 msgid "Edit Partner"
-msgstr "Partner Düzenle"
+msgstr "Hamkorni tahrirlash"
 
 msgid "Are you sure?"
-msgstr "Emin misiniz?"
+msgstr "Ishonchingiz komilmi?"
 
 msgid "Transaction Reasons"
-msgstr "İşlem Nedenleri"
+msgstr "Tranzaksiya sabablari"
 
 msgid "Code"
 msgstr "Kod"
 
 msgid "Delete"
-msgstr "Sil"
+msgstr "O‘chirish"
 
 msgid "Add Type"
-msgstr "Tür Ekle"
+msgstr "Tur qo‘shish"
 
 msgid "Partner Type"
-msgstr "Ortak Türü"
+msgstr "Hamkor turi"
 
 msgid "Profile Settings"
-msgstr "Profil Ayarları"
+msgstr "Profil sozlamalari"
 
 msgid "Language"
-msgstr "Dil"
+msgstr "Til"
 
 msgid "Preferred currency"
-msgstr "Tercih edilen para birimi"
+msgstr "Tanlangan valyuta"
 
 msgid "Balance"
-msgstr "Bakiye"
+msgstr "Qoldiq"
 
 msgid "Total Income"
-msgstr "Toplam Gelir"
+msgstr "Jami daromad"
 
 msgid "Total Expense"
-msgstr "Toplam Gider"
+msgstr "Jami xarajat"
 
 msgid "Net Profit"
-msgstr "Net Kâr"
+msgstr "Sof foyda"
 
 msgid "Account"
-msgstr "Hesap"
+msgstr "Hisob"
 
 msgid "Debit"
-msgstr "Borç"
+msgstr "Debet"
 
 msgid "Credit"
-msgstr "Alacak"
+msgstr "Kredit"
 
 msgid "Date"
-msgstr "Tarih"
+msgstr "Sana"
 
 msgid "Description"
-msgstr "Açıklama"
+msgstr "Tavsif"
 
 msgid "Details"
-msgstr "Detaylar"
+msgstr "Batafsil"
 
 msgid "Transaction type"
-msgstr "İşlem türü"
+msgstr "Tranzaksiya turi"
 
 msgid "Select Partner"
-msgstr "Ortak Seçin"
+msgstr "Hamkorni tanlang"
 
 msgid "Reason"
-msgstr "Neden"
+msgstr "Sabab"
 
 msgid "Select Reason"
-msgstr "Neden Seçin"
+msgstr "Sababni tanlang"
 
 msgid "Amount"
-msgstr "Tutar"
+msgstr "Summasi"
 
 msgid "Save Transaction"
-msgstr "İşlemi Kaydet"
+msgstr "Tranzaksiyani saqlash"
 
 msgid "Transaction saved successfully"
-msgstr "İşlem başarıyla kaydedildi"
+msgstr "Tranzaksiya muvaffaqiyatli saqlandi"

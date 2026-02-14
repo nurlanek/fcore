@@ -3,23 +3,23 @@
 
 {% block content %}
 
-<h4>Create User</h4>
+<h4>{% trans "Create User" %}</h4>
 
 <form id="userForm" class="col-md-4">
 
   <input class="form-control mb-2" id="email" placeholder="Email" required>
-  <input class="form-control mb-2" id="password" placeholder="Password" type="password" required>
+  <input class="form-control mb-2" id="password" placeholder="{% trans 'Password' %}" type="password" required>
 
   <select class="form-select mb-2" id="company"></select>
 
   <select class="form-select mb-2" id="role">
-    <option value="admin">admin</option>
-    <option value="accountant">accountant</option>
-    <option value="manager">manager</option>
-    <option value="viewer">viewer</option>
+    <option value="admin">{% trans "admin" %}</option>
+    <option value="accountant">{% trans "accountant" %}</option>
+    <option value="manager">{% trans "manager" %}</option>
+    <option value="viewer">{% trans "viewer" %}</option>
   </select>
 
-  <button class="btn btn-primary">Create</button>
+  <button class="btn btn-primary">{% trans "Create" %}</button>
 </form>
 
 <div id="msg" class="mt-2"></div>
