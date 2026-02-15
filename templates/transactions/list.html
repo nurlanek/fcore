@@ -35,8 +35,9 @@ async function loadTransactions() {
             <td>${tx.reason_name || '---'}</td>
             <td>
                 <small class="text-muted">
-                    ${tx.lines.map(line => 
-                        `${line.account_name}: ${line.debit > 0 ? '+' + line.debit : '-' + line.credit}`
+                    ${tx.lines.map(line =>
+                        // line.note талаасын колдонуп, салыктын атын көрсөтөбүз
+                        `${line.account_name} ${line.note ? '(' + line.note + ')' : ''}: ${line.debit > 0 ? '+' + line.debit : '-' + line.credit}`
                     ).join('<br>')}
                 </small>
             </td>

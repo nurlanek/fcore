@@ -16,6 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 
+
 msgid "Add Account"
 msgstr "Hesap Ekle"
 

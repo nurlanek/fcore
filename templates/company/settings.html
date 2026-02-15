@@ -3,25 +3,85 @@
 
 {% block content %}
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
+  <div class="row g-4">
+    <!-- SOL: SETTINGS -->
+    <div class="col-lg-6">
       <h3 class="mb-3">{% trans "Company Settings" %}</h3>
+
       <form id="settingsForm">
-          <label>{% trans "Company name" %}</label>
-          <input class="form-control mb-2" id="name" required>
+        <label class="form-label">{% trans "Company name" %}</label>
+        <input class="form-control mb-3" id="name" required>
 
-          <label>{% trans "Base currency" %}</label>
-          <select class="form-select mb-3" id="currency"></select>
+        <label class="form-label">{% trans "Base currency" %}</label>
+        <select class="form-select mb-3" id="currency"></select>
 
-          <button class="btn btn-primary w-100">{% trans "Save" %}</button>
+        <label class="form-label">{% trans "Rate Provider (Bank)" %}</label>
+        <select class="form-select mb-3" id="rate_provider">
+          <option value="GLOBAL">Global (ER-API)</option>
+          <option value="NBKR">Кыргызстан (NBKR)</option>
+          <option value="NBK">Казахстан (NBK)</option>
+          <option value="CBU">Uzbekston (CBU)</option>
+          <option value="TCMB">Түркия (TCMB)</option>
+        </select>
+
+        <button class="btn btn-primary w-100">{% trans "Save" %}</button>
       </form>
+
       <div id="msg" class="mt-2"></div>
+    </div>
+
+    <!-- ON: TAXES -->
+    <div class="col-lg-6">
+      <h5 class="mb-3">{% trans "Company Taxes" %}</h5>
+
+      <div id="taxes-list" class="border p-3 rounded bg-light">
+        <!-- Салыктар бул жерге JS аркылуу келет -->
+        <p class="text-muted mb-0">Loading taxes...</p>
+      </div>
     </div>
   </div>
 </div>
 
+<hr class="my-4">
+<h5>{% trans "Latest Exchange Rates" %}</h5>
+<div class="table-responsive">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>{% trans "Currency" %}</th>
+                <th>{% trans "Rate" %}</th>
+                <th>{% trans "Date" %}</th>
+            </tr>
+        </thead>
+        <tbody id="ratesTableBody">
+            <!-- Маалымат бул жерге JS аркылуу келет -->
+        </tbody>
+    </table>
+</div>
 <script>
-// 1. Валюталарды жүктөө
+
+// 1. Салыктарды жүктөө функциясы
+async function loadCompanyTaxes() {
+    const data = await apiFetch("/api/v1/companies/taxes/");
+    const container = document.getElementById("taxes-list");
+    if (!container || !data) return;
+
+    container.innerHTML = "";
+    data.forEach(tax => {
+        const div = document.createElement("div");
+        div.className = "form-check mb-2";
+        div.innerHTML = `
+            <input class="form-check-input tax-checkbox" type="checkbox"
+                   value="${tax.id}" id="tax_${tax.id}" ${tax.is_selected ? 'checked' : ''}>
+            <label class="form-check-label" for="tax_${tax.id}">
+                ${tax.name} (${tax.rate}%)
+            </label>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// 2. Валюталарды жүктөө
 async function loadCurrencies() {
     const data = await apiFetch("/api/v1/currencies/");
     const sel = document.getElementById("currency");
@@ -35,47 +95,71 @@ async function loadCurrencies() {
     });
 }
 
-// 2. Компаниянын маалыматын жүктөө
+// 3. Компаниянын маалыматын жүктөө
 async function loadCompany() {
     const data = await apiFetch("/api/v1/companies/current/");
     if (data) {
         document.getElementById("name").value = data.name;
         document.getElementById("currency").value = data.base_currency;
+        document.getElementById("rate_provider").value = data.rate_provider;
     }
 }
 
-// 3. Форманы сактоо (PUT)
 document.getElementById("settingsForm").onsubmit = async function(e) {
     e.preventDefault();
-    const payload = {
+
+    // Тандалган салыктардын ID-лерин чогултуу
+    const selectedTaxIds = Array.from(document.querySelectorAll(".tax-checkbox:checked"))
+                                .map(cb => parseInt(cb.value));
+
+    // Компания жөндөөлөрүн сактоо (мурунку логика)
+    const companyPayload = {
         name: document.getElementById("name").value,
-        base_currency: document.getElementById("currency").value
+        base_currency: document.getElementById("currency").value,
+        rate_provider: document.getElementById("rate_provider").value
     };
 
-    // window.API_BASE колдонуу менен URL оңдолду
-    const response = await fetch(window.API_BASE + "/api/v1/companies/current/", {
-        method: "PUT",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-            "Content-Type": "application/json",
-            "X-Company-ID": localStorage.getItem("company_id")
-        },
-        body: JSON.stringify(payload)
-    });
+    // Параллелдүү эки суроо-талап жиберүү
+    const [compRes, taxRes] = await Promise.all([
+        apiFetch("/api/v1/companies/current/", { method: "PUT", body: JSON.stringify(companyPayload) }),
+        apiFetch("/api/v1/companies/taxes/", { method: "POST", body: JSON.stringify({ tax_ids: selectedTaxIds }) })
+    ]);
 
-    const result = await response.json();
     const msg = document.getElementById("msg");
-    if (response.ok) {
+    if (compRes && taxRes) {
         msg.innerHTML = "<span class='text-success'>{% trans 'Saved' %} ✔</span>";
     } else {
-        msg.innerHTML = "<span class='text-danger'>" + JSON.stringify(result) + "</span>";
+        msg.innerHTML = "<span class='text-danger'>Error saving settings</span>";
     }
 };
 
-// Барак жүктөлгөндө ирети менен чакыруу
+// ауыркы курсту алуу
+async function loadLatestRates() {
+    // Системадагы бардык курстарды алуу (же компаниянын базалык валютасына байлангандарды)
+    const data = await apiFetch("/api/v1/currency-rates/"); // [4, 5]
+    const tbody = document.getElementById("ratesTableBody");
+    if (!tbody || !data) return;
+
+    tbody.innerHTML = "";
+    // Эң акыркы 5-10 курсту көрсөтөбүз
+    data.slice(0, 10).forEach(r => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${r.target_currency}</td>
+            <td><b>${r.rate}</b></td>
+            <td><small class="text-muted">${r.date}</small></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Баракча жүктөлгөндө иштетүү
 document.addEventListener("DOMContentLoaded", async () => {
     await loadCurrencies();
-    await loadCompany(); // Бул жерде loadProfile эмес, loadCompany болушу керек!
+    await loadCompany();
+    await loadLatestRates(); // Жаңы функцияны чакыруу
+    await loadCompanyTaxes(); // Жаңы функция
 });
+
 </script>
 {% endblock %}

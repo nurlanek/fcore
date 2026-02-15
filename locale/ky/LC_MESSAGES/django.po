@@ -17,7 +17,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Company Taxes"
+msgstr "Фирманын салыктары"
+
+msgid "Latest Exchange Rates"
+msgstr "Акыркы алмашуу курстары"
+
+msgid "Currency"
+msgstr "Валюта"
+
+msgid "Rate"
+msgstr "Курс"
+
 #: .\templates\accounts\create.html:8 .\templates\includes\sidebar_menu.html:92
+
 msgid "Add Account"
 msgstr "Эсеп кошуу"
 

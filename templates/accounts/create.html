@@ -1,78 +1,76 @@
 {% extends "base.html" %}
 {% load i18n %}
+
 {% block content %}
-
 <div class="container">
-  <div class="col-md-5">
+    <div class="col-md-5">
+        <h4>{% trans "Add Account" %}</h4>
+        <form id="accountForm">
+            <!-- Эсептин аты -->
+            <input class="form-control mb-2" id="name" placeholder="{% trans 'Account name' %}" required>
 
-    <h4>{% trans "Add Account" %}</h4>
+            <!-- Негизги түрү (Asset, Liability, ж.б.) -->
+            <label class="small text-muted">{% trans "Account Type" %}</label>
+            <select class="form-select mb-2" id="type">
+                <option value="asset">Asset</option>
+                <option value="liability">Liability</option>
+                <option value="equity">Equity</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
 
-    <form id="accountForm">
+            <!-- ЖАҢЫ: Субтип (Тилге байланбоо үчүн эң маанилүүсү) -->
+            <label class="small text-muted">{% trans "Account Subtype (Optional)" %}</label>
+            <select class="form-select mb-2" id="subtype">
+                <option value="">-- {% trans "None" %} --</option>
+                <option value="cash">Cash</option>
+                <option value="bank">Bank</option>
+                <option value="tax">Tax</option> <!-- Салыктар үчүн ушуну тандашат -->
+                <option value="other">Other</option>
+            </select>
 
-      <input class="form-control mb-2" id="name" placeholder="{% trans 'Account name' %}"  required>
+            <!-- Валюта -->
+            <label class="small text-muted">{% trans "Currency" %}</label>
+            <select class="form-select mb-2" id="currency"></select>
 
-      <select class="form-select mb-2" id="type">
-        <option value="asset">{% trans "Asset" %}</option>
-        <option value="liability">{% trans "Liability" %}</option>
-        <option value="equity">{% trans "Equity" %}</option>
-        <option value="income">{% trans "Income" %}</option>
-        <option value="expense">{% trans "Expense" %}</option>
-      </select>
+            <!-- Код -->
+            <input class="form-control mb-3" id="code" placeholder="{% trans 'Code (e.g., 2000)' %}">
 
-      <select class="form-select mb-2" id="currency"></select>
-
-      <input class="form-control mb-2" id="code" placeholder="{% trans 'Code (1000)' %}">
-
-      <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
-
-    </form>
-
-    <div id="msg" class="mt-2"></div>
-
-  </div>
+            <button class="btn btn-primary w-100" type="submit">{% trans "Save" %}</button>
+        </form>
+        <div id="msg" class="mt-2 text-center"></div>
+    </div>
 </div>
 
 <script>
-
-
-// ---------- Submit form ----------
 document.getElementById("accountForm").addEventListener("submit", async function(e){
     e.preventDefault();
 
+    // Маалыматтарды чогултуу
     const payload = {
         name: document.getElementById("name").value,
         type: document.getElementById("type").value,
+        subtype: document.getElementById("subtype").value || null, // Жаңы кошулду
         currency: document.getElementById("currency").value,
         code: document.getElementById("code").value
     };
 
-    const res = await fetch(window.API_BASE + "/api/v1/accounts/create/", {
+    const res = await apiFetch("/api/v1/accounts/create/", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("access"),
-            "X-Company-ID": localStorage.getItem("company_id")
-        },
         body: JSON.stringify(payload)
     });
 
-    const data = await res.json();
-
-    console.log("Sent payload:", payload);   // 👈 текшерүү үчүн
-    console.log("Response:", data);
-
     const msg = document.getElementById("msg");
-
-    if(res.ok){
-        msg.innerHTML = "<span class='text-success'>Account created ✅</span>";
+    if(res && res.id){
+        msg.innerHTML = "<span class='text-success'>{% trans 'Account created ✅' %}</span>";
         document.getElementById("accountForm").reset();
     } else {
-        msg.innerHTML = "<span class='text-danger'>" + JSON.stringify(data) + "</span>";
+        msg.innerHTML = "<span class='text-danger'>{% trans 'Error saving account' %}</span>";
     }
 });
 
-// ---------- Init ----------
-document.addEventListener("DOMContentLoaded", loadCurrencies);
+document.addEventListener("DOMContentLoaded", () => {
+    loadCurrenciesGlobal("currency");
+});
 </script>
-
 {% endblock %}
