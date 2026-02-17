@@ -17,6 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Accounts"
+msgstr "Эсептер"
+
 msgid "Company Taxes"
 msgstr "Фирманын салыктары"
 
@@ -235,8 +238,7 @@ msgstr "Өнөктөш типи"
 
 #: .\templates\includes\sidebar_menu.html:104
 #: .\templates\transactions\list.html:17
-msgid "Reasons"
-msgstr "Себептер"
+
 
 #: .\templates\includes\sidebar_menu.html:118
 msgid "Administration"
@@ -280,7 +282,7 @@ msgid "Are you sure?"
 msgstr "Макулсузбу?"
 
 #: .\templates\partners\reasons.html:6
-msgid "Transaction Reasons"
+msgid "Transaction Reason"
 msgstr "Транзакциянын себеби"
 
 #: .\templates\partners\reasons.html:29 .\templates\partners\types.html:14
@@ -365,7 +367,7 @@ msgstr "Өнөктөш тандоо"
 
 #: .\templates\transactions\new.html:40
 
-msgid "Reason"
+msgid "Reasons"
 msgstr "Себептер"
 
 #: .\templates\transactions\new.html:42 .\templates\transactions\new.html:129

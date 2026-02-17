@@ -29,6 +29,7 @@ urlpatterns = [
 
     path("admin/users/create/", lambda r: render(r, "admin/create_user.html")),
     path("admin/users/", lambda r: render(r,"admin/users.html")),
+    path("accounts/", lambda r: render(r, "accounts/list.html")),
 
 
 

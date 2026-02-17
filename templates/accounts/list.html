@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+    <div class="d-flex justify-content-between mb-3">
+        <!-- Эсептер тизмесинин аталышы [2-4] -->
+        <h4>{% trans "Accounts" %}</h4>
+        <!-- Жаңы эсеп кошуу баскычы [5, 6] -->
+        <a href="/accounts/create/" class="btn btn-primary">+ {% trans "Add Account" %}</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{% trans "Code" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Subtype" %}</th>
+                    <th>{% trans "Balance" %}</th>
+                    <th>{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody id="accountTable">
+                <!-- Маалыматтар JavaScript аркылуу жүктөлөт -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Өзгөртүү үчүн Модалдык терезе (Edit Account Modal) -->
+<div class="modal fade" id="editAccountModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-4 shadow-lg border-0">
+            <h5 class="mb-3">{% trans "Edit Account" %}</h5>
+            <input type="hidden" id="edit_id">
+
+            <!-- Эсептин аталышы [2, 3, 7] -->
+            <div class="mb-2">
+                <label class="small text-muted">{% trans "Account name" %}</label>
+                <input type="text" id="edit_name" class="form-control" required>
+            </div>
+
+            <!-- Эсептин түрү [2-4, 8] -->
+            <div class="mb-2">
+                <label class="small text-muted">{% trans "Account Type" %}</label>
+                <select id="edit_type" class="form-select">
+                    <option value="asset">{% trans "Asset" %}</option>
+                    <option value="liability">{% trans "Liability" %}</option>
+                    <option value="equity">{% trans "Equity" %}</option>
+                    <option value="income">{% trans "Income" %}</option>
+                    <option value="expense">{% trans "Expense" %}</option>
+                </select>
+            </div>
+
+            <!-- Субтип [5, 9] -->
+            <div class="mb-2">
+                <label class="small text-muted">{% trans "Account Subtype (Optional)" %}</label>
+                <select id="edit_subtype" class="form-select">
+                    <option value="">-- {% trans "None" %} --</option>
+                    <option value="cash">Cash</option>
+                    <option value="bank">Bank</option>
+                    <option value="tax">Tax</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Валюта [2, 4, 5] -->
+            <div class="mb-2">
+                <label class="small text-muted">{% trans "Currency" %}</label>
+                <select id="edit_currency" class="form-select"></select>
+            </div>
+
+            <!-- Код [5, 8, 10] -->
+            <div class="mb-3">
+                <label class="small text-muted">{% trans "Code" %}</label>
+                <input type="text" id="edit_code" class="form-control" placeholder="{% trans 'Code (e.g., 2000)' %}">
+            </div>
+
+            <button class="btn btn-success w-100" onclick="saveAccountChanges()">{% trans "Save" %}</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    /** 1. Эсептерди жана алардын калдыктарын серверден жүктөө **/
+    async function loadAccounts() {
+        // Калдыктарды алуу API'си колдонулат [11, 12]
+        const data = await apiFetch("/api/v1/accounts/balances/");
+        const tbody = document.getElementById("accountTable");
+        if (!tbody) return;
+
+        tbody.innerHTML = data.map(a => `
+            <tr>
+                <td><code>${a.code || '---'}</code></td>
+                <td>${a.name}</td>
+                <td>${a.type}</td>
+                <td><span class="badge bg-light text-dark">${a.subtype || '---'}</span></td>
+                <td><strong>${a.balance}</strong></td>
+                <td>
+                    <!-- Өзгөртүү баскычы -->
+                    <button class="btn btn-sm btn-warning" onclick='openEditModal(${JSON.stringify(a)})'>✎</button>
+                    <!-- Өчүрүү баскычы [4, 10, 13] -->
+                    <button class="btn btn-sm btn-danger" onclick="deleteAccount(${a.id})">🗑</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    /** 2. Өзгөртүү модалын ачуу жана маалыматты толтуруу **/
+    async function openEditModal(account) {
+        document.getElementById("edit_id").value = account.id;
+        document.getElementById("edit_name").value = account.name;
+        document.getElementById("edit_type").value = account.type;
+        document.getElementById("edit_subtype").value = account.subtype || "";
+        document.getElementById("edit_code").value = account.code || "";
+
+        // Глобалдык валюта тизмесин жүктөө функциясы [14]
+        await loadCurrenciesGlobal("edit_currency");
+        document.getElementById("edit_currency").value = account.currency;
+
+        new bootstrap.Modal(document.getElementById('editAccountModal')).show();
+    }
+
+    /** 3. Өзгөртүүлөрдү серверге сактоо (PUT суроо-талабы) **/
+    async function saveAccountChanges() {
+        const id = document.getElementById("edit_id").value;
+        const payload = {
+            name: document.getElementById("edit_name").value,
+            type: document.getElementById("edit_type").value,
+            subtype: document.getElementById("edit_subtype").value || null,
+            currency: document.getElementById("edit_currency").value,
+            code: document.getElementById("edit_code").value
+        };
+
+        // apiFetch автоматтык түрдө X-Company-ID жана Токенди кошот [14, 15]
+        const res = await apiFetch(`/api/v1/accounts/${id}/`, {
+            method: "PUT",
+            body: JSON.stringify(payload)
+        });
+
+        if (res) {
+            alert("{% trans 'Saved' %}"); // [4, 16-18]
+            location.reload();
+        }
+    }
+
+    /** 4. Эсепти өчүрүү (DELETE суроо-талабы) **/
+    async function deleteAccount(id) {
+        // Көп тилдүү ырастоо терезеси [4, 7, 13, 19]
+        if (!confirm("{% trans 'Are you sure?' %}")) return;
+
+        const res = await apiFetch(`/api/v1/accounts/${id}/`, { method: "DELETE" });
+        loadAccounts(); // Тизмени жаңылоо
+    }
+
+    // Баракча жүктөлгөндө эсептерди алуу
+    document.addEventListener("DOMContentLoaded", loadAccounts);
+</script>
+{% endblock %}
