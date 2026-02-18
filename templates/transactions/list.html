@@ -16,35 +16,95 @@
                 <th>{% trans "Partners" %}</th>
                 <th>{% trans "Reasons" %}</th>
                 <th>{% trans "Details" %}</th>
+                <th>{% trans "Actions" %}</th>
             </tr>
         </thead>
         <tbody id="txRows"></tbody>
     </table>
 </div>
+<!-- Оңдоо үчүн Модал (Edit Transaction) -->
+<div class="modal fade" id="editTxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h5>{% trans "Edit Transaction" %}</h5>
+            <input type="hidden" id="edit_tx_id">
+
+            <div class="mb-2">
+                <label class="small text-muted">{% trans "Date" %}</label>
+                <input type="date" id="edit_tx_date" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="small text-muted">{% trans "Description" %}</label>
+                <textarea id="edit_tx_desc" class="form-control" rows="2"></textarea>
+            </div>
+
+            <button class="btn btn-success w-100" onclick="saveTxChanges()">{% trans "Save" %}</button>
+        </div>
+    </div>
+</div>
 
 <script>
-async function loadTransactions() {
-    const data = await apiFetch("/api/v1/journal-entries/"); // булактагы [2]
-    const tbody = document.getElementById("txRows");
-    
-    tbody.innerHTML = data.map(tx => `
-        <tr>
-            <td>${tx.date}</td>
-            <td>${tx.description || '---'}</td>
-            <td>${tx.partner_name || '---'}</td>
-            <td>${tx.reason_name || '---'}</td>
-            <td>
-                <small class="text-muted">
-                    ${tx.lines.map(line =>
-                        // line.note талаасын колдонуп, салыктын атын көрсөтөбүз
-                        `${line.account_name} ${line.note ? '(' + line.note + ')' : ''}: ${line.debit > 0 ? '+' + line.debit : '-' + line.credit}`
-                    ).join('<br>')}
-                </small>
-            </td>
-        </tr>
-    `).join('');
-}
+ /** 1. Тизмени жүктөө жана "Actions" баскычтарын кошуу **/
+    async function loadTransactions() {
+        const data = await apiFetch("/api/v1/journal-entries/");
+        const tbody = document.getElementById("txRows");
 
+        tbody.innerHTML = data.map(tx => `
+            <tr>
+                <td>${tx.date}</td>
+                <td>${tx.description || '---'}</td>
+                <td>${tx.partner_name || '---'}</td>
+                <td>${tx.reason_name || '---'}</td>
+                <td>
+                    <small class="text-muted">
+                        ${tx.lines.map(l => `${l.account_name}: ${l.debit > 0 ? '+' + l.debit : '-' + l.credit}`).join('<br>')}
+                    </small>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-warning" onclick='openEditModal(${JSON.stringify(tx)})'>✎</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteTx(${tx.id})">🗑</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    /** 2. Модалды ачуу **/
+    function openEditModal(tx) {
+        document.getElementById("edit_tx_id").value = tx.id;
+        document.getElementById("edit_tx_date").value = tx.date;
+        document.getElementById("edit_tx_desc").value = tx.description || "";
+        new bootstrap.Modal(document.getElementById('editTxModal')).show();
+    }
+
+    /** 3. Өзгөртүүлөрдү сактоо (PUT) **/
+    async function saveTxChanges() {
+        const id = document.getElementById("edit_tx_id").value;
+        const payload = {
+            date: document.getElementById("edit_tx_date").value,
+            description: document.getElementById("edit_tx_desc").value
+        };
+
+        const res = await apiFetch(`/api/v1/journal-entries/${id}/`, {
+            method: "PUT",
+            body: JSON.stringify(payload)
+        });
+
+        if (res) {
+            alert("{% trans 'Saved' %}");
+            location.reload();
+        }
+    }
+
+    /** 4. Өчүрүү (DELETE) **/
+    async function deleteTx(id) {
+        if (!confirm("{% trans 'Are you sure?' %}")) return; [8-10]
+
+        const res = await apiFetch(`/api/v1/journal-entries/${id}/`, { method: "DELETE" });
+        if (res === null || res) {
+            loadTransactions();
+        }
+    }
 document.addEventListener("DOMContentLoaded", loadTransactions);
 </script>
 {% endblock %}

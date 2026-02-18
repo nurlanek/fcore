@@ -23,35 +23,43 @@ function logout(){
 }
 // 1. Бардык суроо-талаптар үчүн бирдиктүү функция
 async function apiFetch(url, options = {}) {
-    const token = localStorage.getItem("access");
-    const companyId = localStorage.getItem("company_id");
+  const token = localStorage.getItem("access");
+  const companyId = localStorage.getItem("company_id");
 
-    const headers = {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json",
-        ...options.headers
-    };
+  const headers = {
+    "Content-Type": "application/json",
+    ...options.headers
+  };
 
-    // Multi-tenancy үчүн маанилүү хедер [1, 2]
-    if (companyId) {
-        headers["X-Company-ID"] = companyId;
-    }
+  if (token) headers["Authorization"] = "Bearer " + token;
+  if (companyId) headers["X-Company-ID"] = companyId;
 
-    const response = await fetch(window.API_BASE + url, {
-        ...options,
-        headers: headers
-    });
+  const res = await fetch(window.API_BASE + url, { ...options, headers });
 
-    if (response.status === 401) {
-        window.location.href = "/";
-        return;
-    }
+  // 401 болсо логинге
+  if (res.status === 401) {
+    window.location.href = "/";
+    return null;
+  }
 
-    // Эгер DELETE болсо, json() жок болушу мүмкүн
-    if (response.status === 204) return null;
+  // 204 no content
+  if (res.status === 204) return null;
 
-    return response.json();
+  // JSON окуйбуз (кээде text болушу мүмкүн)
+  let data = null;
+  const ct = res.headers.get("content-type") || "";
+  if (ct.includes("application/json")) data = await res.json();
+  else data = await res.text();
+
+  // ✅ 200-299 эмес болсо: error object кайтарабыз
+  if (!res.ok) {
+    console.error("API error", res.status, data);
+    return { __error: true, status: res.status, data };
+  }
+
+  return data;
 }
+
 
 // 2. Валюталарды жүктөө (Глобалдык версия) [4-6]
 async function loadCurrenciesGlobal(elementId) {
@@ -70,40 +78,47 @@ async function loadCurrenciesGlobal(elementId) {
 
 
 async function loadCompaniesGlobal(){
-    console.log("Loading companies...");
+      console.log("Loading companies...");
 
-    const companies = await apiFetch("/api/v1/companies/");
-    console.log("Companies:", companies);
+      const companies = await apiFetch("/api/v1/companies/");
+      console.log("Companies:", companies);
 
-    // ✅ company_id ар дайым коюлат
-    if(!localStorage.getItem("company_id") && companies.length){
-        localStorage.setItem("company_id", companies[0].company_id);
-        console.log("Company ID set to:", companies[0].company_id);
-    }
-
-    const select = document.getElementById("companySelect");
-
-    if(!select){
-        console.log("companySelect not found on this page");
+      // ✅ Эгер ката болсо
+      if (!companies || companies.__error) {
+        alert("Companies API error: " + (companies?.status || "unknown"));
         return;
-    }
+      }
 
-    select.innerHTML = "";
+      // ✅ Эгер массив эмес болсо
+      if (!Array.isArray(companies)) {
+        console.error("Expected array, got:", companies);
+        alert("Server returned unexpected data формат.");
+        return;
+      }
 
-    companies.forEach(c=>{
+      if(!localStorage.getItem("company_id") && companies.length){
+        localStorage.setItem("company_id", companies[0].company_id);
+      }
+
+      const select = document.getElementById("companySelect");
+      if(!select) return;
+
+      select.innerHTML = "";
+      companies.forEach(c=>{
         const opt = document.createElement("option");
         opt.value = c.company_id;
         opt.textContent = c.company_name;
         select.appendChild(opt);
-    });
+      });
 
-    select.value = localStorage.getItem("company_id");
+      select.value = localStorage.getItem("company_id");
 
-    select.onchange = function(){
+      select.onchange = function(){
         localStorage.setItem("company_id", this.value);
         location.reload();
+      }
     }
-}
+
 
 document.addEventListener("DOMContentLoaded", ()=>{
     console.log("Base JS loaded");
