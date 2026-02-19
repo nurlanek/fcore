@@ -1,8 +1,207 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load static %}
 {% block content %}
 
-<h3>{% trans "Dashboard" %}</h3>
-<div id="info"></div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>{% trans "Dashboard" %}</h3>
+    <span id="last_update" class="text-muted small"></span>
+</div>
+
+<div class="row">
+
+    <!-- AI Эскертмелер -->
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white fw-bold">
+                <i class="bi bi-robot me-2 text-primary"></i>
+                {% trans "AI Insights & Warnings" %}
+            </div>
+            <div class="card-body p-0">
+                <div id="ai_warning_list" class="list-group list-group-flush">
+                    <div class="p-4 text-center text-muted">
+                        {% trans "Scanning financial data..." %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Диаграмма -->
+    <div class="col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white fw-bold">
+                <i class="bi bi-pie-chart me-2 text-primary"></i>
+                {% trans "Risk Distribution" %}
+            </div>
+            <div class="card-body text-center">
+                <canvas id="warningChart" style="max-height: 250px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    loadDashboardWarnings();
+});
+
+/* =========================
+   TRANSLATIONS
+========================= */
+const warningTranslations = {
+    "CRITICAL": "{% trans 'CRITICAL' %}",
+    "WARNING": "{% trans 'WARNING' %}",
+    "INFO": "{% trans 'INFO' %}",
+
+    "CASH": "{% trans 'CASH' %}",
+    "TAX": "{% trans 'TAX' %}",
+    "EXPENSE": "{% trans 'EXPENSE' %}",
+    "INCOME": "{% trans 'INCOME' %}",
+    "PARTNER": "{% trans 'PARTNER' %}",
+    "BILLING": "{% trans 'BILLING' %}",
+
+    "low_cash_balance": "{% trans 'low_cash_balance' %}",
+    "low_total_cash_balance": "{% trans 'low_total_cash_balance' %}",
+    "negative_bank_balance": "{% trans 'negative_bank_balance' %}",
+    "cash_to_expense_ratio": "{% trans 'cash_to_expense_ratio' %}",
+    "insufficient_funds_next_payroll": "{% trans 'insufficient_funds_next_payroll' %}",
+
+    "tax_payable_high": "{% trans 'tax_payable_high' %}",
+    "tax_calculation_mismatch": "{% trans 'tax_calculation_mismatch' %}",
+    "tax_mismatch": "{% trans 'tax_mismatch' %}",
+    "upcoming_tax_deadline": "{% trans 'upcoming_tax_deadline' %}",
+    "high_unpaid_vat": "{% trans 'high_unpaid_vat' %}",
+
+    "expense_spike": "{% trans 'expense_spike' %}",
+    "duplicate_payment": "{% trans 'duplicate_payment' %}",
+    "high_rent_ratio": "{% trans 'high_rent_ratio' %}",
+    "unusual_supplier_payment": "{% trans 'unusual_supplier_payment' %}",
+    "misclassified_expense": "{% trans 'misclassified_expense' %}",
+
+    "income_stagnation": "{% trans 'income_stagnation' %}",
+    "key_client_drop": "{% trans 'key_client_drop' %}",
+    "unusual_income_source": "{% trans 'unusual_income_source' %}",
+    "high_discount_rate": "{% trans 'high_discount_rate' %}",
+
+    "aged_receivable": "{% trans 'aged_receivable' %}",
+    "aged_payable": "{% trans 'aged_payable' %}",
+    "partner_over_limit": "{% trans 'partner_over_limit' %}",
+    "new_partner_no_activity": "{% trans 'new_partner_no_activity' %}",
+
+    "subscription_expiring_soon": "{% trans 'subscription_expiring_soon' %}",
+    "subscription_expired": "{% trans 'subscription_expired' %}",
+    "missing_exchange_rates": "{% trans 'missing_exchange_rates' %}",
+    "unused_bank_account": "{% trans 'unused_bank_account' %}",
+
+    "low_net_profit_margin": "{% trans 'low_net_profit_margin' %}",
+    "sudden_equity_drop": "{% trans 'sudden_equity_drop' %}",
+    "high_cash_withdrawal": "{% trans 'high_cash_withdrawal' %}",
+    "working_capital_gap": "{% trans 'working_capital_gap' %}"
+};
+
+/* =========================
+   LOAD DATA
+========================= */
+async function loadDashboardWarnings() {
+    const data = await apiFetch("/api/v1/ai-warnings/");
+    if (!data) return;
+
+    renderWarningList(data);
+    renderWarningChart(data);
+
+    document.getElementById("last_update").innerText =
+        "{% trans 'Last update' %}: " + new Date().toLocaleTimeString();
+}
+
+/* =========================
+   RENDER LIST
+========================= */
+function renderWarningList(data) {
+    const container = document.getElementById("ai_warning_list");
+
+    if (data.length === 0) {
+        container.innerHTML = `
+            <div class="p-4 text-center text-success">
+                {% trans "No risks detected" %}
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = data.map(w => {
+        const levelClass =
+            w.level === "CRITICAL" ? "danger" :
+            w.level === "WARNING" ? "warning" : "info";
+
+        const levelText = warningTranslations[w.level] || w.level;
+        const messageText = warningTranslations[w.message_key] || w.message_key;
+        const categoryText = warningTranslations[w.category] || w.category;
+
+        return `
+        <div class="list-group-item border-0 border-bottom p-3">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <span class="badge bg-${levelClass} mb-2">${levelText}</span>
+                    <p class="fw-bold mb-1">${messageText}</p>
+                    <small class="text-muted">
+                        ${categoryText} • ${new Date(w.created_at).toLocaleDateString()}
+                    </small>
+                </div>
+                <button class="btn btn-sm btn-outline-secondary"
+                        onclick="resolveWarning('${w.id}')">
+                    <i class="bi bi-check2-all"></i>
+                </button>
+            </div>
+        </div>`;
+    }).join("");
+}
+
+/* =========================
+   CHART
+========================= */
+function renderWarningChart(data) {
+    const canvas = document.getElementById("warningChart");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    const stats = data.reduce((acc, w) => {
+        acc[w.category] = (acc[w.category] || 0) + 1;
+        return acc;
+    }, {});
+
+    if (window.myChart) window.myChart.destroy();
+
+    window.myChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: Object.keys(stats).map(k => warningTranslations[k] || k),
+            datasets: [{
+                data: Object.values(stats),
+                backgroundColor: ["#0d6efd", "#ffc107", "#dc3545", "#198754", "#6c757d"],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            plugins: { legend: { position: "bottom" } },
+            cutout: "70%"
+        }
+    });
+}
+
+/* =========================
+   RESOLVE
+========================= */
+async function resolveWarning(id) {
+    if (confirm("{% trans 'Mark this issue as resolved?' %}")) {
+        const res = await apiFetch(`/api/v1/ai-warnings/${id}/resolve/`, {
+            method: "PUT"
+        });
+        if (res) loadDashboardWarnings();
+    }
+}
+</script>
+
 {% endblock %}

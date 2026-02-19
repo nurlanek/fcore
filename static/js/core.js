@@ -119,6 +119,23 @@ async function loadCompaniesGlobal(){
       }
     }
 
+async function loadAIWarnings() {
+    const data = await apiFetch("/api/v1/ai-warnings/");
+    const container = document.getElementById("ai_warnings_container");
+    if (!container || !data) return;
+
+    container.innerHTML = data.map(w => `
+        <div class="alert alert-${w.level === 'CRITICAL' ? 'danger' : 'warning'}">
+            <strong>${w.category}:</strong> ${w.message_key}
+            <button onclick="resolveWarning('${w.id}')" class="btn btn-sm btn-link">Dismiss</button>
+        </div>
+    `).join('');
+}
+
+async function resolveWarning(id) {
+    const res = await apiFetch(`/api/v1/ai-warnings/${id}/resolve/`, { method: "PUT" });
+    if (res) loadAIWarnings(); // Тизмени жаңыртуу
+}
 
 document.addEventListener("DOMContentLoaded", ()=>{
     console.log("Base JS loaded");

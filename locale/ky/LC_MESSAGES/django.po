@@ -17,6 +17,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+
+msgid "Risk Distribution"
+msgstr "Тобокелдиктерди бөлүштүрүү"
+
+msgid "AI Insights & Warnings"
+msgstr "ЖИ Маалыматтар жана эскертүүлөр"
+
+msgid "tax_calculation_mismatch"
+msgstr "Салыктарды эсептөөдө ката бар"
+
+msgid "low_total_cash_balance"
+msgstr "Жалпы кассалык калдык өтө аз"
+
+msgid "negative_bank_balance"
+msgstr "Банк эсебиндеги терс калдык (овердрафт)"
+
+msgid "cash_to_expense_ratio"
+msgstr "Кассадагы акча чыгашаларды жабууга жетишсиз"
+
+msgid "insufficient_funds_next_payroll"
+msgstr "Кийинки айлык акы төлөөгө каражат жетишсиз"
+
+msgid "tax_payable_high"
+msgstr "Салык карызы өтө жогору"
+
+msgid "tax_mismatch"
+msgstr "Транзакцияда салык туура эмес эсептелген"
+
+msgid "upcoming_tax_deadline"
+msgstr "Салык төлөө мөөнөтү жакындап калды"
+
+msgid "high_unpaid_vat"
+msgstr "Төлөнө элек КНСтин ири суммасы"
+
+msgid "expense_spike"
+msgstr "Чыгашалардын кескин өсүшү байкалды"
+
+msgid "duplicate_payment"
+msgstr "Кайталанган төлөм аныкталды"
+
+msgid "high_rent_ratio"
+msgstr "Кирешеге карата ижара акысы өтө жогору"
+
+msgid "unusual_supplier_payment"
+msgstr "Жеткирүүчүгө адаттан тыш ири төлөм кетти"
+
+msgid "misclassified_expense"
+msgstr "Чыгаша категориясы туура эмес болушу мүмкүн"
+
+msgid "income_stagnation"
+msgstr "Акыркы 14 күндө киреше катталган жок"
+
+msgid "key_client_drop"
+msgstr "Негизги кардардан түшкөн киреше азайды"
+
+msgid "unusual_income_source"
+msgstr "Кирешенин адаттан тыш булагы аныкталды"
+
+msgid "high_discount_rate"
+msgstr "Берилген арзандатуулардын үлүшү өтө жогору"
+
+msgid "aged_receivable"
+msgstr "Кардардын мөөнөтү өткөн карызы бар"
+
+msgid "aged_payable"
+msgstr "Жеткирүүчүгө болгон карыздын мөөнөтү өтүүдө"
+
+msgid "partner_over_limit"
+msgstr "Өнөктөштүн карыз лимити ашып кетти"
+
+msgid "new_partner_no_activity"
+msgstr "Жаңы өнөктөш менен транзакциялар жок"
+
+msgid "subscription_expiring_soon"
+msgstr "Подписканын мөөнөтү бүтөөрүнө аз калды"
+
+msgid "subscription_expired"
+msgstr "Подписканын мөөнөтү бүттү"
+
+msgid "missing_exchange_rates"
+msgstr "Бүгүнкү валюта курстары жаңыланган эмес"
+
+msgid "unused_bank_account"
+msgstr "Банк эсеби көптөн бери колдонула элек"
+
+msgid "low_net_profit_margin"
+msgstr "Таза пайданын маржасы өтө төмөн"
+
+msgid "sudden_equity_drop"
+msgstr "Өздүк капиталдын кескин азайышы"
+
+msgid "high_cash_withdrawal"
+msgstr "Кассадан накталай акча алуу көбөйдү"
+
+msgid "working_capital_gap"
+msgstr "Жүгүртүүдөгү капиталдын жетишсиздиги"
+
+# --- Levels and Categories ---
+
+msgid "CRITICAL"
+msgstr "КРИТИКАЛЫК"
+
+msgid "WARNING"
+msgstr "ЭСКЕРТҮҮ"
+
+msgid "INFO"
+msgstr "МААЛЫМАТ"
+
+msgid "CASH"
+msgstr "КАССА"
+
 msgid "Accounts"
 msgstr "Эсептер"
 
