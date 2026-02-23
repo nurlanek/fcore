@@ -42,6 +42,14 @@ async function apiFetch(url, options = {}) {
     return null;
   }
 
+// ✅ ЖАҢЫ: 402 болсо пакеттер барагына багыттоо
+  if (res.status === 402) {
+    console.warn("Subscription expired or missing. Redirecting to packages...");
+    window.location.href = "/billing/packages/";
+    return null;
+  }
+
+
   // 204 no content
   if (res.status === 204) return null;
 

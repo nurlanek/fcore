@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{% trans "Choose Your Plan" %}</h2>
+    <div class="row id="plans-container">
+        <!-- Пакеттер JS аркылуу бул жерге жүктөлөт -->
+    </div>
+</div>
+
+<script>
+async function loadPlans() {
+    const plans = await apiFetch("/api/v1/billing/plans/");
+    const container = document.getElementById("plans-container");
+    
+    if (!plans || plans.__error) {
+        container.innerHTML = "<p class='text-danger'>Error loading packages.</p>";
+        return;
+    }
+
+    container.innerHTML = plans.map(plan => {
+        // Эгер баасы 0 болсо, бул триал же бекер версия [3, 5]
+        const isTrial = plan.price == 0;
+        
+        return `
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4 ${isTrial ? 'border-primary' : ''}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">${plan.name}</h5>
+                        <h3 class="card-text">${plan.price} USD</h3>
+                        <p class="text-muted">${plan.duration_days} days</p>
+                        <button class="btn ${isTrial ? 'btn-outline-primary' : 'btn-primary'} w-100" 
+                                onclick="subscribe(${plan.id})">
+                            ${isTrial ? 'Start Free Trial' : 'Buy Now'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+async function subscribe(planId) {
+    // Бул жерге сатып алуу же триалды активдештирүү логикасы келет
+    alert("Plan selected: " + planId);
+}
+
+document.addEventListener("DOMContentLoaded", loadPlans);
+</script>
+{% endblock %}

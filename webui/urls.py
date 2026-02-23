@@ -8,6 +8,8 @@ urlpatterns = [
     path("", login_view),
     path("dashboard/", dashboard_view),
 
+    path("billing/packages/", lambda r: render(r, "billing/packages.html")),
+
     path("transactions/new/", lambda r: render(r, "transactions/new.html")),
     path("transactions/", lambda r: render(r, "transactions/list.html")),
 
