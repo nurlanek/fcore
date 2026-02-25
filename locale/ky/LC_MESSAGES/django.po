@@ -18,6 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 
+msgid "Instructions"
+msgstr "Инструкциялар"
+
+msgid "Instructions & Guides"
+msgstr "Инструкциялар жана колдонмолор"
+
 msgid "Risk Distribution"
 msgstr "Тобокелдиктерди бөлүштүрүү"
 

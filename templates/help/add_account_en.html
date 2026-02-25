@@ -1,0 +1,205 @@
+<div class="accordion shadow-sm" id="helpAccordion">
+        <!-- 1-нускама: Эсеп ачуу -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#guideOne">
+                    <strong>How to add a new account?</strong>
+                </button>
+            </h2>
+            <div id="guideOne" class="accordion-collapse collapse show" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+
+
+<div class="container-fluid px-0">
+
+    <!-- Title -->
+    <h4 class="mb-3">
+        📘 Account Creation Guide (KR Accounting Standards)
+    </h4>
+
+    <!-- Step 1 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">1️⃣ Step One: Select the Account Type</h5>
+        <p class="text-muted">
+            According to the accounting standards of the Kyrgyz Republic,
+            all accounts are classified into five main categories.
+            Selecting the correct account type ensures accurate financial reports
+            (Balance Sheet, Profit & Loss).
+        </p>
+
+        <ul>
+            <li><strong>Asset:</strong> Company resources (cash, bank accounts, inventory, buildings).</li>
+            <li><strong>Liability:</strong> Company obligations (payables, loans, taxes payable).</li>
+            <li><strong>Equity:</strong> Owners’ capital and retained earnings.</li>
+            <li><strong>Income:</strong> Revenue from sales and other business activities.</li>
+            <li><strong>Expense:</strong> Costs incurred to operate the business.</li>
+        </ul>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="mb-4">
+        <h5 class="fw-bold text-danger">
+            2️⃣ Step Two: Select the Account Subtype
+        </h5>
+        <p class="text-muted">
+            ⚠️ <strong>This field is critical for the system.</strong><br>
+            For AI analysis and automated transactions to work correctly,
+            the account subtype must be selected.
+        </p>
+
+        <ul>
+            <li><strong>Cash:</strong> For accounts holding physical cash.</li>
+            <li><strong>Bank:</strong> For bank accounts (balances are tracked separately).</li>
+            <li><strong>Tax:</strong> For all tax-related accounts (VAT, income tax, etc.).</li>
+            <li><strong>Other:</strong> For all other accounts (inventory, rent, etc.).</li>
+        </ul>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">3️⃣ Step Three: Use the KR Standard Account Code</h5>
+        <p class="text-muted">
+            In KR accounting, each account has a unique numeric code.
+            It is recommended to use these standard codes when creating accounts.
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Account Name (KR Standard)</th>
+                        <th>Code</th>
+                        <th>Type</th>
+                        <th>Subtype</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cash (KGS)</td>
+                        <td>1110</td>
+                        <td>Asset</td>
+                        <td>cash</td>
+                    </tr>
+                    <tr>
+                        <td>Bank Account (KGS)</td>
+                        <td>1210</td>
+                        <td>Asset</td>
+                        <td>bank</td>
+                    </tr>
+                    <tr>
+                        <td>Inventory for Sale</td>
+                        <td>1610</td>
+                        <td>Asset</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Accounts Payable (Suppliers)</td>
+                        <td>3110</td>
+                        <td>Liability</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>VAT Payable</td>
+                        <td>3430</td>
+                        <td>Liability</td>
+                        <td>tax</td>
+                    </tr>
+                    <tr>
+                        <td>Share Capital</td>
+                        <td>5110</td>
+                        <td>Equity</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Revenue from Product Sales</td>
+                        <td>6110</td>
+                        <td>Income</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>General Administrative Expenses</td>
+                        <td>8000</td>
+                        <td>Expense</td>
+                        <td>other</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">4️⃣ Step Four: Currency Separation</h5>
+        <p class="text-muted">
+            According to NBKR regulations, local currency (KGS)
+            and foreign currencies must not be mixed within the same account.
+        </p>
+
+        <ul>
+            <li>
+                For foreign currency cash, create a separate account
+                (e.g. <strong>1120 — Foreign Currency Cash</strong>).
+            </li>
+            <li>
+                During transactions, the system automatically converts amounts
+                using the NBKR exchange rate and reflects them in reports.
+            </li>
+        </ul>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">5️⃣ Step Five: Add the Account via the Interface (UI Guide)</h5>
+
+        <ol>
+            <li><strong>Account Name:</strong> Enter the account name (e.g. “Main Cash”).</li>
+            <li><strong>Account Type:</strong> Select the account type.</li>
+            <li><strong>Account Subtype:</strong> Select the required subtype.</li>
+            <li><strong>Currency:</strong> Select the account currency.</li>
+            <li><strong>Code:</strong> Enter the KR standard account code (e.g. 1110).</li>
+            <li><strong>Save:</strong> Click the Save button.</li>
+        </ol>
+    </div>
+
+    <!-- Notes -->
+    <div class="alert alert-warning small">
+        <strong>Important Notes:</strong>
+        <ul class="mb-0">
+            <li>
+                When a company is created, core accounts
+                (Cash, Bank, Revenue, Expenses) are generated automatically.
+            </li>
+            <li>
+                Accounts are isolated per company (multi-tenancy)
+                and are not visible to other companies.
+            </li>
+            <li>
+                If an account is temporarily not used, it is recommended
+                to set <code>is_active = False</code> instead of deleting it.
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+                                    </div>
+            </div>
+        </div>
+
+        <!-- 2-нускама: Транзакция түзүү -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guideTwo">
+                    <strong>How to record a transaction?</strong>
+                </button>
+            </h2>
+            <div id="guideTwo" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <p><strong>"Operations" -> "New Transaction"</strong> барагына өтүп, сумманы, күндү жана тиешелүү эсепти тандаңыз [9, 10]. Эгер салыкты эсептөө керек болсо, "Calculate Taxes" белгисин коюңуз [11].</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+

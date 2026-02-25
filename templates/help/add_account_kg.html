@@ -1,0 +1,196 @@
+<div class="accordion shadow-sm" id="helpAccordion">
+        <!-- 1-нускама: Эсеп ачуу -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#guideOne">
+                    <strong>Жаңы эсепти кантип кошсо болот?</strong>
+                </button>
+            </h2>
+            <div id="guideOne" class="accordion-collapse collapse show" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+
+<div class="container-fluid px-0">
+
+    <!-- Title -->
+    <h4 class="mb-3">
+        📘 Эсеп кошуу боюнча колдонмо (КР стандарты)
+    </h4>
+
+    <!-- Step 1 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">1️⃣ Алгачкы кадам: Эсептин негизги түрүн тандоо (Account Type)</h5>
+        <p class="text-muted">
+            КР стандарттарына ылайык, бардык эсептер беш негизги категорияга бөлүнөт.
+            Эсептин түрүн туура тандоо — отчеттордун (Баланс, Пайда жана Зыян) так чыгышын камсыздайт.
+        </p>
+
+        <ul>
+            <li><strong>Asset (Актив):</strong> Фирманын каражаттары (касса, банк, товарлар, имараттар).</li>
+            <li><strong>Liability (Милдеттенме):</strong> Фирманын карыздары (жеткирүүчүлөр, кредиттер, салыктар).</li>
+            <li><strong>Equity (Өздүк капитал):</strong> Учредителдердин салымы жана таза пайда.</li>
+            <li><strong>Income (Киреше):</strong> Сатуудан жана башка ишмердүүлүктөн түшкөн каражаттар.</li>
+            <li><strong>Expense (Чыгаша):</strong> Фирманын иши үчүн кеткен бардык чыгымдар.</li>
+        </ul>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="mb-4">
+        <h5 class="fw-bold text-danger">
+            2️⃣ Экинчи кадам: Субтипти белгилөө (Account Subtype)
+        </h5>
+        <p class="text-muted">
+            ⚠️ <strong>Бул талаа система үчүн эң маанилүү.</strong><br>
+            ЖИ (AI) анализи жана автоматтык транзакциялар туура иштеши үчүн сөзсүз толтурулушу керек.
+        </p>
+
+        <ul>
+            <li><strong>Cash (Касса):</strong> Накталай акча сакталган эсептер.</li>
+            <li><strong>Bank (Банк):</strong> Банк эсептери (калдык өзүнчө көзөмөлдөнөт).</li>
+            <li><strong>Tax (Салык):</strong> КНС, пайда салыгы жана башка салыктар.</li>
+            <li><strong>Other:</strong> Башка бардык эсептер (товар, ижара ж.б.).</li>
+        </ul>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">3️⃣ Үчүнчү кадам: КР стандартындагы кодду колдонуу (Account Code)</h5>
+        <p class="text-muted">
+            КР бухгалтериясында ар бир эсептин уникалдуу санарип коду бар.
+            Системада эсеп ачууда ушул коддорду колдонуу сунушталат.
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Эсептин аты (КР стандарты)</th>
+                        <th>Код</th>
+                        <th>Негизги түрү</th>
+                        <th>Субтиби</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Касса (Сом менен)</td>
+                        <td>1110</td>
+                        <td>Asset</td>
+                        <td>cash</td>
+                    </tr>
+                    <tr>
+                        <td>Эсептешүү эсеби (Банк - сом)</td>
+                        <td>1210</td>
+                        <td>Asset</td>
+                        <td>bank</td>
+                    </tr>
+                    <tr>
+                        <td>Сатуу үчүн товарлар</td>
+                        <td>1610</td>
+                        <td>Asset</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Жеткирүүчүлөргө карыз</td>
+                        <td>3110</td>
+                        <td>Liability</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Төлөнүүчү КНС (VAT)</td>
+                        <td>3430</td>
+                        <td>Liability</td>
+                        <td>tax</td>
+                    </tr>
+                    <tr>
+                        <td>Уставдык капитал</td>
+                        <td>5110</td>
+                        <td>Equity</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Продукцияны сатуудан түшкөн киреше</td>
+                        <td>6110</td>
+                        <td>Income</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Жалпы административдик чыгашалар</td>
+                        <td>8000</td>
+                        <td>Expense</td>
+                        <td>other</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">4️⃣ Төртүнчү кадам: Валюталык изоляция (Currency)</h5>
+        <p class="text-muted">
+            НБКРдин талабы боюнча, сом жана чет өлкөлүк валюта бир эсепте аралашпашы керек.
+        </p>
+
+        <ul>
+            <li>
+                Эгер долларлык касса болсо — өзүнчө эсеп ачыңыз
+                (мисалы: <strong>1120 — Валюталык касса</strong>).
+            </li>
+            <li>
+                Система транзакция учурунда НБКР курсу боюнча автоматтык түрдө сомго которот.
+            </li>
+        </ul>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">5️⃣ Бешинчи кадам: Интерфейс аркылуу кошуу (UI Guide)</h5>
+
+        <ol>
+            <li><strong>Account Name:</strong> Эсептин атын жазыңыз (мисалы: "Башкы касса").</li>
+            <li><strong>Account Type:</strong> Asset, Liability ж.б. тандаңыз.</li>
+            <li><strong>Account Subtype:</strong> Милдеттүү субтипти тандаңыз.</li>
+            <li><strong>Currency:</strong> Валютаны көрсөтүңүз.</li>
+            <li><strong>Code:</strong> КР планы боюнча кодду жазыңыз (мисалы: 1110).</li>
+            <li><strong>Save:</strong> Сактоо баскычын басыңыз.</li>
+        </ol>
+    </div>
+
+    <!-- Notes -->
+    <div class="alert alert-warning small">
+        <strong>Маанилүү эскертүүлөр:</strong>
+        <ul class="mb-0">
+            <li>
+                Компания түзүлгөндө негизги эсептер автоматтык ачылат
+                (Касса, Банк, Киреше, Чыгаша).
+            </li>
+            <li>
+                Эсептер multi-tenancy принцип менен — башка компанияларга көрүнбөйт.
+            </li>
+            <li>
+                Эсепти өчүрбөстөн <code>is_active = False</code> кылуу сунушталат.
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 2-нускама: Транзакция түзүү -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guideTwo">
+                    <strong>Транзакцияны кантип каттоо керек?/strong>
+                </button>
+            </h2>
+            <div id="guideTwo" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <p><strong>"Operations" -> "New Transaction"</strong> барагына өтүп, сумманы, күндү жана тиешелүү эсепти тандаңыз [9, 10]. Эгер салыкты эсептөө керек болсо, "Calculate Taxes" белгисин коюңуз [11].</p>
+                </div>
+            </div>
+        </div>
+    </div>
+

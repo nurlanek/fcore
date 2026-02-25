@@ -147,6 +147,46 @@
                 </div>
             </div>
         </div>
+        <!-- 4️⃣ Help -->
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="headingHelp">
+                <button class="accordion-button collapsed py-2 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseHelp"
+                        aria-expanded="false"
+                        aria-controls="collapseHelp">
+                    <i class="bi bi-question-circle me-2"></i> {% trans "Help" %}
+                </button>
+            </h2>
+            <div id="collapseHelp"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="headingHelp"
+                 data-bs-parent="#sidebarAccordion">
+                <div class="accordion-body py-1">
+                    <ul class="nav flex-column small">
+                        <li>
+                            <a class="nav-link" href="/help/">
+                                <i class="bi bi-question-circle me-2 text-info"></i>
+                                {% trans "Instructions" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/help/faq/">
+                                <i class="bi bi-patch-question me-2"></i>
+                                {% trans "FAQ" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/help/support/">
+                                <i class="bi bi-headset me-2"></i>
+                                {% trans "Support" %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     </div>
 

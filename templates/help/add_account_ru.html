@@ -1,0 +1,199 @@
+<div class="accordion shadow-sm" id="helpAccordion">
+        <!-- 1-нускама: Эсеп ачуу -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#guideOne">
+                    <strong>Как добавить новый счёт?</strong>
+                </button>
+            </h2>
+            <div id="guideOne" class="accordion-collapse collapse show" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+<div class="container-fluid px-0">
+    <!-- Title -->
+    <h4 class="mb-3">
+        📘 Руководство по добавлению счетов (стандарты КР)
+    </h4>
+
+    <!-- Step 1 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">1️⃣ Шаг первый: Выбор основного типа счёта (Account Type)</h5>
+        <p class="text-muted">
+            Согласно стандартам Кыргызской Республики, все бухгалтерские счета
+            делятся на пять основных категорий.
+            Правильный выбор типа счёта гарантирует корректное формирование отчётов
+            (Баланс, Прибыли и убытки).
+        </p>
+
+        <ul>
+            <li><strong>Asset (Актив):</strong> Имущество и средства компании (касса, банк, товары, здания).</li>
+            <li><strong>Liability (Обязательства):</strong> Долги компании (поставщики, кредиты, налоги).</li>
+            <li><strong>Equity (Собственный капитал):</strong> Вклады учредителей и нераспределённая прибыль.</li>
+            <li><strong>Income (Доход):</strong> Поступления от продаж и другой деятельности.</li>
+            <li><strong>Expense (Расход):</strong> Все затраты, связанные с деятельностью компании.</li>
+        </ul>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="mb-4">
+        <h5 class="fw-bold text-danger">
+            2️⃣ Шаг второй: Выбор субтипа счёта (Account Subtype)
+        </h5>
+        <p class="text-muted">
+            ⚠️ <strong>Это поле является критически важным для системы.</strong><br>
+            Для корректной работы ИИ-аналитики и автоматических транзакций
+            субтип должен быть обязательно указан.
+        </p>
+
+        <ul>
+            <li><strong>Cash (Касса):</strong> Для счетов с наличными денежными средствами.</li>
+            <li><strong>Bank (Банк):</strong> Для банковских счетов (остатки контролируются отдельно).</li>
+            <li><strong>Tax (Налог):</strong> Для всех налоговых счетов (НДС, налог на прибыль и др.).</li>
+            <li><strong>Other (Прочее):</strong> Для остальных счетов (товары, аренда и т.д.).</li>
+        </ul>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">3️⃣ Шаг третий: Использование кода по стандарту КР (Account Code)</h5>
+        <p class="text-muted">
+            В бухгалтерском учёте КР каждому счёту присваивается уникальный цифровой код.
+            При создании счёта рекомендуется использовать эти стандартные коды.
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Наименование счёта (стандарт КР)</th>
+                        <th>Код</th>
+                        <th>Тип</th>
+                        <th>Субтип</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Касса (сом)</td>
+                        <td>1110</td>
+                        <td>Asset</td>
+                        <td>cash</td>
+                    </tr>
+                    <tr>
+                        <td>Расчётный счёт (банк, сом)</td>
+                        <td>1210</td>
+                        <td>Asset</td>
+                        <td>bank</td>
+                    </tr>
+                    <tr>
+                        <td>Товары для продажи</td>
+                        <td>1610</td>
+                        <td>Asset</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Задолженность перед поставщиками</td>
+                        <td>3110</td>
+                        <td>Liability</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>НДС к уплате (VAT)</td>
+                        <td>3430</td>
+                        <td>Liability</td>
+                        <td>tax</td>
+                    </tr>
+                    <tr>
+                        <td>Уставный капитал</td>
+                        <td>5110</td>
+                        <td>Equity</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Доход от реализации продукции</td>
+                        <td>6110</td>
+                        <td>Income</td>
+                        <td>other</td>
+                    </tr>
+                    <tr>
+                        <td>Общие административные расходы</td>
+                        <td>8000</td>
+                        <td>Expense</td>
+                        <td>other</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">4️⃣ Шаг четвёртый: Валютная изоляция (Currency)</h5>
+        <p class="text-muted">
+            Согласно требованиям НБКР, операции в национальной и иностранной валюте
+            не должны учитываться на одном счёте.
+        </p>
+
+        <ul>
+            <li>
+                Для валютной кассы необходимо открыть отдельный счёт
+                (например: <strong>1120 — Валютная касса</strong>).
+            </li>
+            <li>
+                При проведении операций система автоматически пересчитывает суммы
+                по курсу НБКР и отражает их в отчётах.
+            </li>
+        </ul>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="mb-4">
+        <h5 class="fw-bold">5️⃣ Шаг пятый: Добавление счёта через интерфейс (UI Guide)</h5>
+
+        <ol>
+            <li><strong>Account Name:</strong> Укажите название счёта (например: «Основная касса»).</li>
+            <li><strong>Account Type:</strong> Выберите тип (Asset, Liability и т.д.).</li>
+            <li><strong>Account Subtype:</strong> Выберите обязательный субтип.</li>
+            <li><strong>Currency:</strong> Укажите валюту счёта.</li>
+            <li><strong>Code:</strong> Введите код по плану счетов КР (например: 1110).</li>
+            <li><strong>Save:</strong> Нажмите кнопку сохранения.</li>
+        </ol>
+    </div>
+
+    <!-- Notes -->
+    <div class="alert alert-warning small">
+        <strong>Важные примечания:</strong>
+        <ul class="mb-0">
+            <li>
+                При создании компании основные счета
+                (Касса, Банк, Доходы, Расходы) создаются автоматически.
+            </li>
+            <li>
+                Все счета изолированы по принципу multi-tenancy
+                и видны только в рамках вашей компании.
+            </li>
+            <li>
+                Если счёт временно не используется, рекомендуется
+                установить <code>is_active = False</code>, а не удалять его.
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 2-нускама: Транзакция түзүү -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guideTwo">
+                    <strong>Как записать транзакцию?</strong>
+                </button>
+            </h2>
+            <div id="guideTwo" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                <div class="accordion-body">
+                    <p><strong>"Operations" -> "New Transaction"</strong> барагына өтүп, сумманы, күндү жана тиешелүү эсепти тандаңыз [9, 10]. Эгер салыкты эсептөө керек болсо, "Calculate Taxes" белгисин коюңуз [11].</p>
+                </div>
+            </div>
+        </div>
+    </div>

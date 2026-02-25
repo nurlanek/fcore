@@ -73,7 +73,6 @@ document.getElementById("loginForm").onsubmit = async function(e){
     }
     });
 
-
     const companies = await companiesRes.json();
 
     if(companies.length === 0){

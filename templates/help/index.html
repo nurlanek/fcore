@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container mt-4">
+    <h3><i class="bi bi-book me-2"></i> {% trans "Instructions & Guides" %}</h3>
+    <hr>
+
+
+
+                  {% get_current_language as LANG %}
+
+                    {% if LANG == "ru" %}
+                      {% include "help/add_account_ru.html" %}
+                    {% elif LANG == "ky" %}
+                      {% include "help/add_account_kg.html" %}
+                    {% elif LANG == "en" %}
+                      {% include "help/add_account_en.html" %}
+                    {% else %}
+                      {% include "help/add_account_ru.html" %}
+                    {% endif %}
+
+
+</div>
+{% endblock %}
