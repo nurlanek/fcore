@@ -12,6 +12,7 @@
         <thead>
             <tr>
                 <th>{% trans "Date" %}</th>
+                <th>{% trans "Status" %}</th>
                 <th>{% trans "Description" %}</th>
                 <th>{% trans "Partners" %}</th>
                 <th>{% trans "Reasons" %}</th>
@@ -47,27 +48,39 @@
 <script>
  /** 1. Тизмени жүктөө жана "Actions" баскычтарын кошуу **/
     async function loadTransactions() {
-        const data = await apiFetch("/api/v1/journal-entries/");
-        const tbody = document.getElementById("txRows");
+    const data = await apiFetch("/api/v1/journal-entries/");
+    const tbody = document.getElementById("txRows");
+    tbody.innerHTML = data.map(tx => {
+        // Статус үчүн badge түзүү
+        const statusBadge = tx.status === 'posted'
+            ? '<span class="badge bg-success">Posted</span>'
+            : '<span class="badge bg-warning text-dark">Draft</span>';
 
-        tbody.innerHTML = data.map(tx => `
+        // Эгер бекитилген болсо, өзгөртүү/өчүрүү баскычтарын жашыруу же блоктоо
+        const isPosted = tx.status === 'posted';
+
+        return `
             <tr>
                 <td>${tx.date}</td>
+                <td>${statusBadge}</td>
                 <td>${tx.description || '---'}</td>
                 <td>${tx.partner_name || '---'}</td>
                 <td>${tx.reason_name || '---'}</td>
+                <td>${tx.partner_name || '---'}</td>
                 <td>
-                    <small class="text-muted">
-                        ${tx.lines.map(l => `${l.account_name}: ${l.debit > 0 ? '+' + l.debit : '-' + l.credit}`).join('<br>')}
-                    </small>
+                    ${!isPosted ? `
+                        <button class="btn btn-sm btn-success" onclick="approveTransaction(${tx.id})">✔ Approve</button>
+                        <button class="btn btn-sm btn-warning" onclick='openEditModal(${JSON.stringify(tx)})'>✎</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTx(${tx.id})">🗑</button>
+                    ` : `
+                        <button class="btn btn-sm btn-outline-secondary" disabled>Locked</button>
+                    `}
                 </td>
-                <td>
-                    <button class="btn btn-sm btn-warning" onclick='openEditModal(${JSON.stringify(tx)})'>✎</button>
-                    <button class="btn btn-sm btn-danger" onclick="deleteTx(${tx.id})">🗑</button>
-                </td>
+
             </tr>
-        `).join('');
-    }
+        `;
+    }).join('');
+}
 
     /** 2. Модалды ачуу **/
     function openEditModal(tx) {

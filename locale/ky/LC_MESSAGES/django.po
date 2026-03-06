@@ -18,6 +18,24 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 
+msgid "The new transaction is saved as a"
+msgstr "Жаңы транзакция "
+
+msgid "and will only appear in reports after approval."
+msgstr "катары сакталат жана бекитилгенден кийин гана отчеттордо көрүнөт."
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Posted"
+msgstr "Бекитилди"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Approve"
+msgstr "Бекитүү"
+
 msgid "Instructions"
 msgstr "Инструкциялар"
 

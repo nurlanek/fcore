@@ -75,6 +75,10 @@
                         <label class="form-label">{% trans "Description" %}</label>
                         <textarea class="form-control" id="description" rows="2"></textarea>
                     </div>
+                    <div class="alert alert-info py-2 small mb-3">
+                        <i class="bi bi-info-circle me-1"></i>
+                       {% trans "The new transaction is saved as a" %}<strong>{% trans "Draft" %}</strong> {% trans "and will only appear in reports after approval." %}
+                    </div>
 
                     <button type="submit" class="btn btn-sm btn-primary w-100">{% trans "Save Transaction" %}</button>
                 </form>

@@ -68,6 +68,21 @@ async function apiFetch(url, options = {}) {
   return data;
 }
 
+// Транзакцияны бекитүү (Draft -> Posted)
+async function approveTransaction(id) {
+    if (!confirm("Бул транзакцияны бекитүүнү каалайсызбы? Бул баланска таасир этет.")) return;
+
+    const res = await apiFetch(`/api/v1/journal-entries/${id}/approve/`, {
+        method: "POST"
+    });
+
+    if (res && !res.__error) {
+        alert("Транзакция ийгиликтүү бекитилди!");
+        loadTransactions(); // Тизмени жаңылоо
+    } else {
+        alert("Ката: " + (res?.data?.detail || "Транзакция бекитилген жок"));
+    }
+}
 
 // 2. Валюталарды жүктөө (Глобалдык версия) [4-6]
 async function loadCurrenciesGlobal(elementId) {
