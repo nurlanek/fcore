@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="card shadow-sm p-4">
+    <h4><i class="bi bi-shield-check me-2"></i> {% trans "Audit Trail" %}</h4>
+    <div class="table-responsive mt-3">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>{% trans "Timestamp" %}</th>
+                    <th>{% trans "User" %}</th>
+                    <th>{% trans "Action" %}</th>
+                    <th>{% trans "Resource" %}</th>
+                    <th>{% trans "Changes" %}</th>
+                </tr>
+            </thead>
+            <tbody id="auditLogRows">
+                <!-- Маалыматтар JS аркылуу келет -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Өзгөрүүлөрдү көрүү үчүн Модал -->
+<div class="modal fade" id="auditModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5>{% trans "Change Details" %}</h5></div>
+            <div class="modal-body">
+                <pre id="auditJson" class="bg-light p-3 small"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Аудит журналдарын жүктөө
+async function loadAuditLogs() {
+    const data = await apiFetch("/api/v1/audit-logs/"); // Backend'деги endpoint'иңиз
+    const tbody = document.getElementById("auditLogRows");
+    if (!tbody || !data) return;
+
+    tbody.innerHTML = data.map(log => `
+        <tr>
+            <td>${new Date(log.timestamp).toLocaleString()}</td>
+            <td>${log.user_email || 'System'}</td>
+            <td><span class="badge bg-secondary">${log.action}</span></td>
+            <td>${log.model_name} (ID: ${log.object_id})</td>
+            <td>
+                <button class="btn btn-sm btn-outline-info" onclick='showAuditChanges(${JSON.stringify(log.changes)})'>
+                    <i class="bi bi-eye"></i> View Changes
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+    function showAuditChanges(changes) {
+        document.getElementById("auditJson").innerText = JSON.stringify(changes, null, 2);
+        new bootstrap.Modal(document.getElementById('auditModal')).show();
+    }
+    document.addEventListener("DOMContentLoaded", loadAuditLogs);
+</script>
+{% endblock %}

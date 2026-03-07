@@ -1,88 +1,108 @@
 {% extends "base.html" %}
 {% load i18n %}
-
 {% block content %}
 <div class="card shadow-sm p-4">
     <div class="d-flex justify-content-between mb-3">
         <h4>{% trans "Transaction History" %}</h4>
         <a href="/transactions/new/" class="btn btn-sm btn-primary">+ {% trans "New Transaction" %}</a>
     </div>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>{% trans "Date" %}</th>
-                <th>{% trans "Status" %}</th>
-                <th>{% trans "Description" %}</th>
-                <th>{% trans "Partners" %}</th>
-                <th>{% trans "Reasons" %}</th>
-                <th>{% trans "Details" %}</th>
-                <th>{% trans "Actions" %}</th>
-            </tr>
-        </thead>
-        <tbody id="txRows"></tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th>{% trans "Partners" %}</th>
+                    <th>{% trans "Reasons" %}</th>
+                    <th>{% trans "Details" %}</th>
+                    <th>{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody id="txRows">
+                <!-- Маалыматтар JS аркылуу келет -->
+            </tbody>
+        </table>
+    </div>
 </div>
+
 <!-- Оңдоо үчүн Модал (Edit Transaction) -->
 <div class="modal fade" id="editTxModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <h5>{% trans "Edit Transaction" %}</h5>
             <input type="hidden" id="edit_tx_id">
-
             <div class="mb-2">
                 <label class="small text-muted">{% trans "Date" %}</label>
                 <input type="date" id="edit_tx_date" class="form-control">
             </div>
-
             <div class="mb-3">
                 <label class="small text-muted">{% trans "Description" %}</label>
                 <textarea id="edit_tx_desc" class="form-control" rows="2"></textarea>
             </div>
-
             <button class="btn btn-success w-100" onclick="saveTxChanges()">{% trans "Save" %}</button>
         </div>
     </div>
 </div>
 
 <script>
- /** 1. Тизмени жүктөө жана "Actions" баскычтарын кошуу **/
+    /** 1. Тизмени жүктөө **/
     async function loadTransactions() {
-    const data = await apiFetch("/api/v1/journal-entries/");
-    const tbody = document.getElementById("txRows");
-    tbody.innerHTML = data.map(tx => {
-        // Статус үчүн badge түзүү
-        const statusBadge = tx.status === 'posted'
-            ? '<span class="badge bg-success">Posted</span>'
-            : '<span class="badge bg-warning text-dark">Draft</span>';
+        const data = await apiFetch("/api/v1/journal-entries/");
+        const tbody = document.getElementById("txRows");
+        if (!tbody || !data) return;
 
-        // Эгер бекитилген болсо, өзгөртүү/өчүрүү баскычтарын жашыруу же блоктоо
-        const isPosted = tx.status === 'posted';
+        tbody.innerHTML = data.map(tx => {
+            const statusBadge = tx.status === 'posted'
+                ? '<span class="badge bg-success">{% trans "Posted" %}</span>'
+                : '<span class="badge bg-warning text-dark">{% trans "Draft" %}</span>';
 
-        return `
-            <tr>
-                <td>${tx.date}</td>
-                <td>${statusBadge}</td>
-                <td>${tx.description || '---'}</td>
-                <td>${tx.partner_name || '---'}</td>
-                <td>${tx.reason_name || '---'}</td>
-                <td>${tx.partner_name || '---'}</td>
-                <td>
-                    ${!isPosted ? `
-                        <button class="btn btn-sm btn-success" onclick="approveTransaction(${tx.id})">✔ Approve</button>
-                        <button class="btn btn-sm btn-warning" onclick='openEditModal(${JSON.stringify(tx)})'>✎</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteTx(${tx.id})">🗑</button>
-                    ` : `
-                        <button class="btn btn-sm btn-outline-secondary" disabled>Locked</button>
-                    `}
-                </td>
+            const isPosted = tx.status === 'posted';
 
-            </tr>
-        `;
-    }).join('');
-}
+            // Details бөлүгүндө дебет/кредитти көрсөтүү
+            const detailsHtml = tx.lines ? tx.lines.map(l =>
+                `<small class="d-block text-muted">${l.account_name}: ${l.debit > 0 ? '+' + l.debit : '-' + l.credit}</small>`
+            ).join('') : '---';
 
-    /** 2. Модалды ачуу **/
+            return `
+                <tr>
+                    <td>${tx.date}</td>
+                    <td>${statusBadge}</td>
+                    <td>${tx.description || '---'}</td>
+                    <td>${tx.partner_name || '---'}</td>
+                    <td>${tx.reason_name || '---'}</td>
+                    <td>${detailsHtml}</td>
+                    <td>
+                        ${!isPosted ? `
+                            <button class="btn btn-sm btn-outline-success mb-1" onclick="approveTransaction(${tx.id})">✔ {% trans "Approve" %}</button>
+                            <button class="btn btn-sm btn-warning mb-1" onclick='openEditModal(${JSON.stringify(tx)})'>✎</button>
+                            <button class="btn btn-sm btn-danger mb-1" onclick="deleteTx(${tx.id})">🗑</button>
+                        ` : `
+                            <button class="btn btn-sm btn-light border" disabled><i class="bi bi-lock"></i> {% trans "Locked" %}</button>
+                        `}
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    /** 2. Транзакцияны бекитүү (Approve) **/
+    async function approveTransaction(id) {
+        if (!confirm("{% trans 'Бул транзакцияны бекитүүнү каалайсызбы? Бул баланска таасир этет.' %}")) return;
+
+        const res = await apiFetch(`/api/v1/journal-entries/${id}/approve/`, {
+            method: "POST"
+        });
+
+        if (res && !res.__error) {
+            alert("{% trans 'Транзакция ийгиликтүү бекитилди!' %}");
+            loadTransactions();
+        } else {
+            alert("{% trans 'Ката кетти:' %} " + (res?.data?.detail || "Error"));
+        }
+    }
+
+    /** 3. Модалды ачуу **/
     function openEditModal(tx) {
         document.getElementById("edit_tx_id").value = tx.id;
         document.getElementById("edit_tx_date").value = tx.date;
@@ -90,7 +110,7 @@
         new bootstrap.Modal(document.getElementById('editTxModal')).show();
     }
 
-    /** 3. Өзгөртүүлөрдү сактоо (PUT) **/
+    /** 4. Өзгөртүүлөрдү сактоо (PUT) **/
     async function saveTxChanges() {
         const id = document.getElementById("edit_tx_id").value;
         const payload = {
@@ -103,21 +123,22 @@
             body: JSON.stringify(payload)
         });
 
-        if (res) {
+        if (res && !res.__error) {
             alert("{% trans 'Saved' %}");
             location.reload();
         }
     }
 
-    /** 4. Өчүрүү (DELETE) **/
+    /** 5. Өчүрүү (DELETE) **/
     async function deleteTx(id) {
-        if (!confirm("{% trans 'Are you sure?' %}")) return; [8-10]
+        if (!confirm("{% trans 'Are you sure?' %}")) return;
 
         const res = await apiFetch(`/api/v1/journal-entries/${id}/`, { method: "DELETE" });
-        if (res === null || res) {
+        if (res === null || (res && !res.__error)) {
             loadTransactions();
         }
     }
-document.addEventListener("DOMContentLoaded", loadTransactions);
+
+    document.addEventListener("DOMContentLoaded", loadTransactions);
 </script>
 {% endblock %}

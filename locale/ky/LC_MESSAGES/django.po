@@ -18,6 +18,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 
+
+msgid "Timestamp"
+msgstr "Убакыт белгиси"
+
+msgid "Resource"
+msgstr "Ресурс"
+
+msgid "Changes"
+msgstr "Өзгөртүүлөр"
+
+msgid "Audit Trail"
+msgstr "Аудит журналы"
+
 msgid "The new transaction is saved as a"
 msgstr "Жаңы транзакция "
 

@@ -35,6 +35,8 @@ urlpatterns = [
 
     path("help/", lambda r: render(r, "help/index.html")),
 
+    path("audit/logs/", lambda r: render(r, "audit/logs.html")),
+
 
 
 
