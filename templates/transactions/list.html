@@ -99,6 +99,7 @@
             loadTransactions();
         } else {
             alert("{% trans 'Ката кетти:' %} " + (res?.data?.detail || "Error"));
+            loadTransactions();
         }
     }
 
