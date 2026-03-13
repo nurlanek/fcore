@@ -10,6 +10,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>{% trans "Number" %}</th>
                     <th>{% trans "Date" %}</th>
                     <th>{% trans "Status" %}</th>
                     <th>{% trans "Description" %}</th>
@@ -66,6 +67,7 @@
 
             return `
                 <tr>
+                    <td><strong>${tx.entry_number || '---'}</strong></td> <!-- Номерди көрсөтүү -->
                     <td>${tx.date}</td>
                     <td>${statusBadge}</td>
                     <td>${tx.description || '---'}</td>
