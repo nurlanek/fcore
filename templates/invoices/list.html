@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="card shadow-sm p-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h4>{% trans "Invoices" %}</h4>
+        <a href="/invoices/new/" class="btn btn-primary">+ {% trans "Create Invoice" %}</a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{% trans "Number" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Partner" %}</th>
+                <th>{% trans "Total" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody id="invoiceRows"></tbody>
+    </table>
+</div>
+
+<script>
+    async function loadInvoices() {
+        const data = await apiFetch("/api/v1/invoices/");
+        const tbody = document.getElementById("invoiceRows");
+        tbody.innerHTML = data.map(inv => `
+            <tr>
+                <td><strong>${inv.number}</strong></td>
+                <td>${inv.date}</td>
+                <td>${inv.partner_name}</td>
+                <td>${inv.total} ${inv.currency_code}</td>
+                <td><span class="badge bg-info">${inv.status}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary">PDF</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    document.addEventListener("DOMContentLoaded", loadInvoices);
+</script>
+{% endblock %}

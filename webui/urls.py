@@ -37,6 +37,10 @@ urlpatterns = [
 
     path("audit/logs/", lambda r: render(r, "audit/logs.html")),
 
+    path("invoices/", lambda r: render(r, "invoices/list.html")),
+    path("invoices/new/", lambda r: render(r, "invoices/new.html")),
+    path("invoices/<uuid:id>/", lambda r: render(r, "invoices/detail.html")),
+
 
 
 
